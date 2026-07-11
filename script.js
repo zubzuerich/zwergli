@@ -23,6 +23,42 @@ menuToggle.addEventListener("click", () => {
 });
 
 // -----------------------------------------------------------
+// Spar-Rechner: reagiert auf den Schieberegler (id="artikel-slider")
+// und rechnet live aus, wie viel Geld und Wasser gespart wird.
+// -----------------------------------------------------------
+const slider = document.querySelector("#artikel-slider");
+
+if (slider) {
+  const artikelWert = document.querySelector("#artikel-wert");
+  const geldWert = document.querySelector("#geld-wert");
+  const wasserWert = document.querySelector("#wasser-wert");
+
+  // Annahmen für die Berechnung – bei Bedarf hier leicht anpassbar
+  const CHF_PRO_ARTIKEL = 15;
+  const WASSER_PRO_ARTIKEL = 2700; // Liter
+
+  // Diese Funktion liest den aktuellen Schieberegler-Wert und
+  // schreibt die berechneten Zahlen in die drei Anzeige-Felder.
+  function rechnerAktualisieren() {
+    const anzahl = Number(slider.value);
+
+    artikelWert.textContent = anzahl;
+    geldWert.textContent = `CHF ${anzahl * CHF_PRO_ARTIKEL}`;
+
+    const wasserGesamt = anzahl * WASSER_PRO_ARTIKEL;
+    // toLocaleString formatiert grosse Zahlen mit Tausender-Trennzeichen,
+    // z.B. aus 27000 wird "27'000"
+    wasserWert.textContent = `${wasserGesamt.toLocaleString("de-CH")} l`;
+  }
+
+  // "input" feuert bei jeder Mausbewegung des Reglers, nicht erst beim Loslassen
+  slider.addEventListener("input", rechnerAktualisieren);
+
+  // Einmal beim Laden der Seite ausführen, damit die Startwerte stimmen
+  rechnerAktualisieren();
+}
+
+// -----------------------------------------------------------
 // Kleines Extra: Wenn jemand auf einen Anker-Link (#kategorien etc.)
 // klickt, während das mobile Menü offen ist, soll es sich schliessen.
 // Das ist ein Beispiel dafür, wie man auf MEHRERE Elemente gleichzeitig
