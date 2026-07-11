@@ -1,0 +1,181 @@
+/* =========================================================
+   ZWERGLI – Design Tokens
+   Palette: frisches Moosgrün (Nachhaltigkeit) + warmes Ocker
+   (Spielzeug/Wärme) + Tannengrün für Text + zartes Rosa als Akzent.
+   Display: "Baloo 2" – rund, freundlich, kinderfreundlich.
+   Body: "Karla" – ruhig, gut lesbar.
+   ========================================================= */
+:root {
+  --moss-bg: #E7EEE0;
+  --moss-bg-soft: #F2F6ED;
+  --ochre: #D4A24C;
+  --ochre-dark: #B8843A;
+  --forest: #2F4B3C;
+  --forest-deep: #1E332A;
+  --rose: #E3A0A0;
+  --cream: #FBF9F4;
+  --ink: #2B2B28;
+
+  --font-display: "Baloo 2", system-ui, sans-serif;
+  --font-body: "Karla", system-ui, sans-serif;
+
+  --radius-md: 14px;
+  --radius-lg: 28px;
+  --shadow-soft: 0 8px 24px rgba(47, 75, 60, 0.08);
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--cream);
+  line-height: 1.55;
+}
+
+h1, h2, h3, .logo { font-family: var(--font-display); color: var(--forest-deep); margin: 0; }
+
+.wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 999px;
+  padding: 10px 20px;
+  font-weight: 700;
+  font-family: var(--font-body);
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn-primary { background: var(--ochre); color: var(--forest-deep); }
+.btn-primary:hover { background: var(--ochre-dark); }
+.btn-outline { border-color: var(--forest); color: var(--forest); }
+.btn-outline:hover { background: var(--forest); color: var(--cream); }
+.btn-ghost { background: none; border: none; font-size: 1.4rem; display: none; }
+.btn-lg { padding: 14px 28px; font-size: 1.05rem; }
+
+/* ---------- Header ---------- */
+.site-header {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(251, 249, 244, 0.9);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(47, 75, 60, 0.08);
+}
+.header-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 14px; padding-bottom: 14px;
+}
+.logo { font-size: 1.5rem; font-weight: 800; }
+.logo-dot { color: var(--ochre); }
+.main-nav { display: flex; gap: 28px; font-weight: 600; }
+.main-nav a:hover { color: var(--ochre-dark); }
+.header-actions { display: flex; align-items: center; gap: 12px; }
+
+/* ---------- Hero ---------- */
+.hero { background: var(--moss-bg); padding: 72px 0 60px; overflow: hidden; }
+.hero-inner {
+  display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 48px; align-items: center;
+}
+.eyebrow {
+  text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.8rem;
+  font-weight: 700; color: var(--ochre-dark); margin-bottom: 12px;
+}
+.hero h1 { font-size: clamp(2rem, 4vw, 2.9rem); line-height: 1.15; }
+.hero .highlight { color: var(--forest); }
+.hero-sub { font-size: 1.1rem; margin: 18px 0 28px; max-width: 46ch; color: #4C5A4F; }
+.hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+.hero-stats { display: flex; gap: 32px; margin-top: 36px; }
+.stat strong { display: block; font-family: var(--font-display); font-size: 1.6rem; color: var(--forest); }
+.stat span { font-size: 0.85rem; color: #5B6A5E; }
+
+/* Signature element: circular "weitergeben" loop */
+.hero-visual { display: flex; justify-content: center; }
+.loop-badge { width: 260px; height: 260px; position: relative; }
+.loop-svg { width: 100%; height: 100%; }
+#loop-path { stroke: var(--forest); animation: dash 8s linear infinite; stroke-dasharray: 6 10; }
+.loop-text { font-family: var(--font-display); font-weight: 700; fill: var(--forest); font-size: 15px; }
+@keyframes dash { to { stroke-dashoffset: -160; } }
+@media (prefers-reduced-motion: reduce) { #loop-path { animation: none; } }
+
+/* ---------- Section headings ---------- */
+section h2 { font-size: 1.7rem; margin-bottom: 32px; display: flex; align-items: baseline; gap: 12px; }
+.num { font-family: var(--font-body); font-size: 0.85rem; font-weight: 700; color: var(--ochre-dark); border: 2px solid var(--ochre); border-radius: 999px; padding: 2px 10px; }
+
+/* ---------- Kategorien ---------- */
+.kategorien { padding: 72px 0; }
+.card-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.card {
+  background: var(--moss-bg-soft); border-radius: var(--radius-md);
+  padding: 26px; box-shadow: var(--shadow-soft);
+}
+.card-icon { font-size: 1.8rem; margin-bottom: 12px; }
+.card h3 { font-size: 1.05rem; margin-bottom: 8px; }
+.card p { font-size: 0.92rem; color: #4C5A4F; margin: 0; }
+
+/* ---------- Ablauf ---------- */
+.ablauf { background: var(--forest-deep); color: var(--cream); padding: 72px 0; }
+.ablauf h2, .ablauf .num { color: var(--cream); border-color: var(--ochre); }
+.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.steps li { display: flex; gap: 16px; }
+.step-index {
+  flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%;
+  background: var(--ochre); color: var(--forest-deep); font-family: var(--font-display);
+  font-weight: 700; display: flex; align-items: center; justify-content: center;
+}
+.steps h3 { color: var(--cream); font-size: 1.05rem; margin-bottom: 6px; }
+.steps p { color: #C9D6CC; font-size: 0.92rem; margin: 0; }
+
+/* ---------- Vertrauen ---------- */
+.vertrauen { padding: 72px 0; }
+.vertrauen-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+.trust-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.trust-list li { padding-left: 28px; position: relative; }
+.trust-list li::before { content: "✓"; position: absolute; left: 0; color: var(--ochre-dark); font-weight: 700; }
+.quote {
+  background: var(--rose); color: var(--forest-deep); border-radius: var(--radius-lg);
+  padding: 32px; font-size: 1.1rem; font-style: italic; margin: 0;
+}
+.quote cite { display: block; margin-top: 14px; font-size: 0.85rem; font-style: normal; opacity: 0.8; }
+
+/* ---------- CTA band ---------- */
+.cta-band { background: var(--ochre); padding: 64px 0; text-align: center; }
+.cta-inner h2 { justify-content: center; color: var(--forest-deep); }
+.cta-inner p { max-width: 50ch; margin: 12px auto 26px; color: var(--forest-deep); }
+.cta-band .btn-primary { background: var(--forest-deep); color: var(--cream); }
+.cta-band .btn-primary:hover { background: var(--forest); }
+
+/* ---------- Footer ---------- */
+.site-footer { background: var(--forest-deep); color: #C9D6CC; padding: 22px 0; font-size: 0.85rem; }
+.footer-inner { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 860px) {
+  .hero-inner { grid-template-columns: 1fr; }
+  .hero-visual { order: -1; }
+  .card-grid { grid-template-columns: repeat(2, 1fr); }
+  .steps { grid-template-columns: 1fr; }
+  .vertrauen-inner { grid-template-columns: 1fr; }
+  .main-nav {
+    display: none;
+    position: absolute; top: 100%; left: 0; right: 0;
+    background: var(--cream); flex-direction: column; gap: 0;
+    border-bottom: 1px solid rgba(47,75,60,0.1);
+  }
+  .main-nav a { padding: 14px 24px; border-top: 1px solid rgba(47,75,60,0.06); }
+  .main-nav.nav-open { display: flex; }
+  .btn-ghost { display: inline-flex; }
+}
