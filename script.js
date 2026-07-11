@@ -30,11 +30,13 @@ const slider = document.querySelector("#artikel-slider");
 
 if (slider) {
   const artikelWert = document.querySelector("#artikel-wert");
-  const geldWert = document.querySelector("#geld-wert");
+  const co2Wert = document.querySelector("#co2-wert");
   const wasserWert = document.querySelector("#wasser-wert");
 
-  // Annahmen für die Berechnung – bei Bedarf hier leicht anpassbar
-  const CHF_PRO_ARTIKEL = 15;
+  // Quellen: EuRIC (2023) – 3 kg CO2 gespart pro wiederverwendetem
+  // Kleidungsstück. WWF – durchschnittlicher Wasserfussabdruck eines
+  // Kleidungsstücks (Anbau, Färben, Verarbeitung) von 2'700 Litern.
+  const CO2_PRO_ARTIKEL = 3; // kg
   const WASSER_PRO_ARTIKEL = 2700; // Liter
 
   // Diese Funktion liest den aktuellen Schieberegler-Wert und
@@ -43,7 +45,7 @@ if (slider) {
     const anzahl = Number(slider.value);
 
     artikelWert.textContent = anzahl;
-    geldWert.textContent = `CHF ${anzahl * CHF_PRO_ARTIKEL}`;
+    co2Wert.textContent = `${anzahl * CO2_PRO_ARTIKEL} kg`;
 
     const wasserGesamt = anzahl * WASSER_PRO_ARTIKEL;
     // toLocaleString formatiert grosse Zahlen mit Tausender-Trennzeichen,
