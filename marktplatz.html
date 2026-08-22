@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="de-CH">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marktplatz – Zwergli</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Karla:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .marktplatz-intro { padding: 40px 0 8px; }
+    .filter-bar {
+      display: flex; gap: 12px; flex-wrap: wrap; align-items: center;
+      background: var(--moss-bg-soft); border-radius: var(--radius-md);
+      padding: 18px; margin: 24px 0 36px;
+    }
+    .filter-bar select, .filter-bar input[type="search"] {
+      font-family: var(--font-body); font-size: 0.92rem; padding: 9px 14px;
+      border-radius: 999px; border: 2px solid rgba(47,75,60,0.15);
+      background: var(--cream); color: var(--ink);
+    }
+    .filter-bar input[type="search"] { flex: 1; min-width: 180px; }
+    .filter-count { font-size: 0.85rem; color: #5B6A5E; margin-left: auto; white-space: nowrap; }
+
+    .listing-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; padding-bottom: 72px;
+    }
+    .listing-card {
+      background: var(--moss-bg-soft); border-radius: var(--radius-md);
+      overflow: hidden; box-shadow: var(--shadow-soft); display: flex; flex-direction: column;
+    }
+    .listing-photo {
+      aspect-ratio: 4/3; background: var(--moss-bg); position: relative;
+      display: flex; align-items: center; justify-content: center; color: var(--forest);
+    }
+    .listing-photo svg { width: 34px; height: 34px; opacity: 0.4; }
+    .listing-condition {
+      position: absolute; top: 10px; left: 10px; background: var(--cream);
+      color: var(--forest-deep); font-size: 0.72rem; font-weight: 700;
+      padding: 4px 10px; border-radius: 999px;
+    }
+    .listing-body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 6px; }
+    .listing-title { font-family: var(--font-display); font-size: 1.05rem; color: var(--forest-deep); }
+    .listing-meta { font-size: 0.82rem; color: #5B6A5E; }
+    .listing-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; }
+    .listing-price { font-family: var(--font-display); font-weight: 700; font-size: 1.15rem; color: var(--forest); }
+    .listing-region { font-size: 0.78rem; color: #5B6A5E; }
+
+    @media (max-width: 860px) {
+      .listing-grid { grid-template-columns: repeat(2, 1fr); }
+      .filter-count { margin-left: 0; }
+    }
+    @media (max-width: 560px) {
+      .listing-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a href="index.html" class="logo">Zwergli<span class="logo-dot">.</span></a>
+
+      <nav class="main-nav" id="main-nav">
+        <a href="marktplatz.html">Marktplatz</a>
+        <a href="wie-es-funktioniert.html">Wie es funktioniert</a>
+        <a href="ueber-uns.html">Über uns</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="btn btn-ghost" id="menu-toggle" aria-label="Menü öffnen" aria-expanded="false">☰</button>
+        <a href="index.html#verkaufen" class="btn btn-primary">Jetzt verkaufen</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== INTRO ===== -->
+  <section class="marktplatz-intro">
+    <div class="wrap">
+      <p class="eyebrow">Marktplatz</p>
+      <h1 style="max-width: 26ch; font-size: clamp(1.7rem, 3.5vw, 2.3rem);">Beispiel-Inserate – so könnte dein Zwergli-Marktplatz aussehen</h1>
+      <p class="hero-sub" style="max-width: 60ch; margin-top: 12px;">
+        Die Artikel unten sind <strong>Beispiele zur Veranschaulichung</strong>, keine echten Inserate. Filter und Suche sind als Vorschau gebaut – die eigentliche Funktion kommt in einem späteren Entwicklungsschritt dazu.
+      </p>
+
+      <!-- Filterleiste: rein optisch/Vorschau, ohne echte Funktion -->
+      <div class="filter-bar">
+        <select disabled>
+          <option>Alle Kategorien</option>
+        </select>
+        <select disabled>
+          <option>Alle Grössen</option>
+        </select>
+        <select disabled>
+          <option>Alle Regionen</option>
+        </select>
+        <input type="search" placeholder="z.B. Schneeanzug, Grösse 86…" disabled />
+        <span class="filter-count">9 Artikel</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== INSERATE ===== -->
+  <section>
+    <div class="wrap">
+      <div class="listing-grid">
+
+        <article class="listing-card">
+          <div class="listing-photo">
+            <span class="listing-condition">Gut erhalten</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 15l-5-5-9 9"/></svg>
+          </div>
+          <div class="listing-body">
+            <div class="listing-title">Winter-Schneeanzug</div>
+            <div class="listing-meta">Grösse 86–92 · Marke Reima</div>
+            <div class="listing-footer">
+              <span class="listing-price">CHF 28.–</span>
+              <span class="listing-region">Winterthur</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="listing-card">
+          <div class="listing-photo">
+            <span class="listing-condition">Neuwertig</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 15l-5-5-9 9"/></svg>
+          </div>
+          <div class="listing-body">
+            <div class="listing-title">3er-Set Bodies langarm</div>
+            <div class="listing-meta">Grösse 62 · Bio-Baumwolle</div>
+            <div class="listing-footer">
+              <span class="listing-price">CHF 12.–</span>
+              <span class="listing-region">Zürich</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="listing-card">
+          <div class="listing-photo">
+            <span class="listing-condition">Gut erhalten</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 15l-5-5-9 9"/></svg>
+          </div>
+          <div class="listing-body">
+            <div class="listing-title">Kinderwagen 3-in-1</div>
+            <div class="listing-meta">Ab Geburt · inkl. Babyschale</div>
+            <div class="listing-footer">
+              <span class="listing-price">CHF 240.–</span>
+              <span class="listing-region">Uster</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="listing-card">
+          <div class="listing-photo">
+            <span class="listing-condition">Sichtbar getragen</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 15l-5-5-9 9"/></svg>
+          </div>
+          <div class="listing-body">
+            <div class="listing-title">Lauflernschuhe</div>
+            <div class="listing-meta">Grösse 21 · Leder</div>
+            <div class="listing-footer">
+              <span class="listing-price">CHF 8.–</span>
+              <span class="listing-region">Winterthur</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="listing-card">
+          <div class="listing-photo">
+            <span class="listing-condition">Gut erhalten</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 15l-5-5-9 9"/></svg>
+          </div>
+          <div class="listing-body">
+            <div class="listing-title">Holzbausteine, 40-teilig</div>
+            <div class="listing-meta">Ab 1 Jahr · FSC-zertifiziert</div>
+            <div class="listing-footer">
+              <span class="listing-price">CHF 18.–</span>
+              <span class="listing-region">Bern</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="listing-card">
+          <div class="listing-photo">
+            <span class="listing-condition">Neuwertig</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 15l-5-5-9 9"/></svg>
+          </div>
+          <div class="listing-body">
+            <div class="listing-title">Reboard-Autositz</div>
+            <div class="listing-meta">0–18 kg · Baujahr 2024</div>
+            <div class="listing-footer">
+              <span class="listing-price">CHF 95.–</span>
+              <span class="listing-region">Aarau</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="listing-card">
+          <div class="listing-photo">
+            <span class="listing-condition">Gut erhalten</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 15l-5-5-9 9"/></svg>
+          </div>
+          <div class="listing-body">
+            <div class="listing-title">Frühling-Jacke</div>
+            <div class="listing-meta">Grösse 104 · wasserdicht</div>
+            <div class="listing-footer">
+              <span class="listing-price">CHF 15.–</span>
+              <span class="listing-region">Zürich</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="listing-card">
+          <div class="listing-photo">
+            <span class="listing-condition">Sichtbar getragen</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 15l-5-5-9 9"/></svg>
+          </div>
+          <div class="listing-body">
+            <div class="listing-title">Bilderbuch-Kiste, 12 Stück</div>
+            <div class="listing-meta">Ab 2 Jahre · gemischt</div>
+            <div class="listing-footer">
+              <span class="listing-price">CHF 20.–</span>
+              <span class="listing-region">Winterthur</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="listing-card">
+          <div class="listing-photo">
+            <span class="listing-condition">Neuwertig</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 15l-5-5-9 9"/></svg>
+          </div>
+          <div class="listing-body">
+            <div class="listing-title">Hochstuhl mitwachsend</div>
+            <div class="listing-meta">Holz, ab 6 Monaten</div>
+            <div class="listing-footer">
+              <span class="listing-price">CHF 60.–</span>
+              <span class="listing-region">St. Gallen</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="cta-band" id="verkaufen">
+    <div class="wrap cta-inner">
+      <h2>Selbst etwas anbieten?</h2>
+      <p>Erstell dein erstes Inserat in wenigen Minuten – kostenlos und unverbindlich.</p>
+      <a href="#" class="btn btn-primary btn-lg">Kostenlos registrieren</a>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <span>© 2026 Zwergli · Ein Transferarbeit-Projekt</span>
+      <span>Made in Winterthur, Schweiz</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
