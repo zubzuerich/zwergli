@@ -77,6 +77,8 @@ if (geburtsdatumInput) {
   const naechsteGroesse = document.querySelector("#naechste-groesse");
   const naechsteSchuhgroesse = document.querySelector("#naechste-schuhgroesse");
   const autositzGruppe = document.querySelector("#autositz-gruppe");
+  const gewichtInput = document.querySelector("#gewicht");
+  const koerpergroesseInput = document.querySelector("#koerpergroesse");
 
   // Richtwerte für Autositz-Gruppen nach Alter. WICHTIG: gesetzlich zählt
   // eigentlich Gewicht/Körpergrösse, nicht das Alter - das steht auch so
@@ -87,6 +89,37 @@ if (geburtsdatumInput) {
     { bis: 84, gruppe: "Sitzerhöhung (Gruppe 2)", bereich: "ca. 15–25 kg" },
     { bis: 144, gruppe: "Sitzerhöhung (Gruppe 3)", bereich: "ca. 22–36 kg, bis 150 cm oder 12 Jahre" },
   ];
+
+  // Dieselben Gruppen, aber nach Gewicht statt Alter sortiert - wird
+  // verwendet, sobald ein Gewicht eingegeben wird (genauer als eine
+  // Alters-Schätzung, weil Kinder unterschiedlich schnell wachsen).
+  const AUTOSITZ_NACH_GEWICHT = [
+    { bisKg: 13, gruppe: "Babyschale (Gruppe 0+)", bereich: "bis ca. 13 kg, rückwärtsgerichtet" },
+    { bisKg: 18, gruppe: "Kindersitz (Gruppe 1)", bereich: "ca. 9–18 kg" },
+    { bisKg: 25, gruppe: "Sitzerhöhung (Gruppe 2)", bereich: "ca. 15–25 kg" },
+    { bisKg: 36, gruppe: "Sitzerhöhung (Gruppe 3)", bereich: "ca. 22–36 kg" },
+  ];
+
+  function autositzBerechnen(alterInMonaten) {
+    const gewicht = Number(gewichtInput.value);
+    const groesseCm = Number(koerpergroesseInput.value);
+
+    // Körpergrösse hat Vorrang: ab 150 cm ist gesetzlich gar kein
+    // Kindersitz mehr vorgeschrieben, unabhängig von Gewicht oder Alter.
+    if (groesseCm && groesseCm >= 150) {
+      return { text: "Kein Kindersitz mehr nötig – Körpergrösse erreicht", basis: "Grösse" };
+    }
+
+    // Gewicht ist genauer als Alter, wenn vorhanden
+    if (gewicht) {
+      const zeile = AUTOSITZ_NACH_GEWICHT.find((z) => gewicht <= z.bisKg) ?? AUTOSITZ_NACH_GEWICHT[AUTOSITZ_NACH_GEWICHT.length - 1];
+      return { text: `${zeile.gruppe} · ${zeile.bereich}`, basis: "Gewicht" };
+    }
+
+    // Sonst grobe Schätzung nach Alter
+    const zeile = AUTOSITZ_TABELLE.find((z) => alterInMonaten < z.bis) ?? AUTOSITZ_TABELLE[AUTOSITZ_TABELLE.length - 1];
+    return { text: `${zeile.gruppe} · ${zeile.bereich}`, basis: "Alter (grobe Schätzung)" };
+  }
 
   // Richtwerte für gängige CH/EU-Kindergrössen nach Alter in Monaten.
   // "bis" ist exklusiv (z.B. 0-1 heisst: ab Geburt bis kurz vor 1 Monat)
@@ -106,7 +139,7 @@ if (geburtsdatumInput) {
     { bis: 96, kleidung: "122–128", schuh: "33–34" },
   ];
 
-  geburtsdatumInput.addEventListener("change", () => {
+  function guideAktualisieren() {
     if (!geburtsdatumInput.value) return;
 
     const geburtsdatum = new Date(geburtsdatumInput.value);
@@ -136,10 +169,18 @@ if (geburtsdatumInput) {
 
     guideResults.classList.add("sichtbar");
 
-    // Autositz-Richtwert berechnen (separat von der Kleidergrössen-Tabelle)
-    const autositzZeile = AUTOSITZ_TABELLE.find((zeile) => alterInMonaten < zeile.bis) ?? AUTOSITZ_TABELLE[AUTOSITZ_TABELLE.length - 1];
-    autositzGruppe.textContent = `${autositzZeile.gruppe} · ${autositzZeile.bereich}`;
-  });
+    // Autositz-Richtwert berechnen (separat von der Kleidergrössen-Tabelle,
+    // nutzt Gewicht/Grösse falls vorhanden, sonst nur das Alter)
+    const autositzErgebnis = autositzBerechnen(alterInMonaten);
+    autositzGruppe.textContent = autositzErgebnis.text;
+    document.querySelector("#autositz-basis").textContent = `Berechnet nach: ${autositzErgebnis.basis}`;
+  }
+
+  // Bei jeder Änderung neu berechnen - Geburtsdatum ist Pflicht für die
+  // Kleidergrössen, Gewicht/Grösse verfeinern zusätzlich die Autositz-Angabe
+  geburtsdatumInput.addEventListener("change", guideAktualisieren);
+  gewichtInput.addEventListener("input", guideAktualisieren);
+  koerpergroesseInput.addEventListener("input", guideAktualisieren);
 }
 
 // -----------------------------------------------------------
