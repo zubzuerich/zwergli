@@ -29,6 +29,14 @@
     .groessen-karte .detail { font-size: 0.82rem; color: #5B6A5E; margin-top: 4px; }
     .guide-cta { margin-top: 24px; }
     .guide-disclaimer { font-size: 0.78rem; color: #5B6A5E; margin-top: 20px; }
+    .autositz-box {
+      background: var(--rose); border-radius: var(--radius-md);
+      padding: 18px 20px; margin-top: 20px;
+    }
+    .autositz-box .etikett { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--forest-deep); }
+    .autositz-box .wert { font-family: var(--font-display); color: var(--forest-deep); }
+    .autositz-box .guide-hinweis { color: var(--forest-deep); opacity: 0.85; }
+    .autositz-box a { color: var(--forest-deep); text-decoration: underline; font-weight: 700; }
   </style>
 </head>
 <body>
@@ -85,6 +93,14 @@
             </div>
           </div>
           <a href="marktplatz.html" class="btn btn-primary btn-lg guide-cta">Passende Artikel im Marktplatz ansehen</a>
+
+          <div class="autositz-box" id="autositz-box">
+            <div class="etikett" style="margin-bottom: 6px;">Zusätzlich: Autositz-Richtwert</div>
+            <div class="wert" id="autositz-gruppe" style="font-size: 1.15rem;">–</div>
+            <p class="guide-hinweis" style="margin: 8px 0 0;">
+              Gesetzlich massgebend sind in der Schweiz <strong>Gewicht und Körpergrösse</strong> des Kindes, nicht das Alter – dies ist nur ein Richtwert. Seit 1.9.2024 dürfen neu nur noch Sitze nach Norm <strong>ECE R129 (i-Size)</strong> verkauft werden. Pflicht besteht bis 12 Jahre oder 150 cm Körpergrösse (Quelle: <a href="https://www.astra.admin.ch/astra/de/home/themen/verkehrsregeln/sicherung-kindern.html" target="_blank" rel="noopener">ASTRA</a>, <a href="https://www.bfu.ch/de/ratgeber/kindersitz" target="_blank" rel="noopener">BFU</a>).
+            </p>
+          </div>
         </div>
 
         <p class="guide-disclaimer">Richtwerte auf Basis gängiger CH/EU-Kindergrössen – jede Marke schneidet leicht anders, im Zweifel lieber eine Nummer grösser wählen.</p>

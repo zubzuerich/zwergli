@@ -76,6 +76,17 @@ if (geburtsdatumInput) {
   const aktuelleSchuhgroesse = document.querySelector("#aktuelle-schuhgroesse");
   const naechsteGroesse = document.querySelector("#naechste-groesse");
   const naechsteSchuhgroesse = document.querySelector("#naechste-schuhgroesse");
+  const autositzGruppe = document.querySelector("#autositz-gruppe");
+
+  // Richtwerte für Autositz-Gruppen nach Alter. WICHTIG: gesetzlich zählt
+  // eigentlich Gewicht/Körpergrösse, nicht das Alter - das steht auch so
+  // im Hinweistext auf der Seite. Quellen: ASTRA, BFU (siehe Links im HTML).
+  const AUTOSITZ_TABELLE = [
+    { bis: 15, gruppe: "Babyschale (Gruppe 0+)", bereich: "bis ca. 13 kg, rückwärtsgerichtet" },
+    { bis: 48, gruppe: "Kindersitz (Gruppe 1)", bereich: "ca. 9–18 kg" },
+    { bis: 84, gruppe: "Sitzerhöhung (Gruppe 2)", bereich: "ca. 15–25 kg" },
+    { bis: 144, gruppe: "Sitzerhöhung (Gruppe 3)", bereich: "ca. 22–36 kg, bis 150 cm oder 12 Jahre" },
+  ];
 
   // Richtwerte für gängige CH/EU-Kindergrössen nach Alter in Monaten.
   // "bis" ist exklusiv (z.B. 0-1 heisst: ab Geburt bis kurz vor 1 Monat)
@@ -124,6 +135,10 @@ if (geburtsdatumInput) {
     }
 
     guideResults.classList.add("sichtbar");
+
+    // Autositz-Richtwert berechnen (separat von der Kleidergrössen-Tabelle)
+    const autositzZeile = AUTOSITZ_TABELLE.find((zeile) => alterInMonaten < zeile.bis) ?? AUTOSITZ_TABELLE[AUTOSITZ_TABELLE.length - 1];
+    autositzGruppe.textContent = `${autositzZeile.gruppe} · ${autositzZeile.bereich}`;
   });
 }
 
