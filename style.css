@@ -13,6 +13,7 @@
   --forest: #2F4B3C;
   --forest-deep: #1E332A;
   --rose: #E3A0A0;
+  --rose-soft: #F0C7C7;
   --cream: #FBF9F4;
   --ink: #2B2B28;
 
@@ -21,7 +22,7 @@
 
   --radius-md: 14px;
   --radius-lg: 28px;
-  --shadow-soft: 0 8px 24px rgba(47, 75, 60, 0.08);
+  --shadow-soft: 0 1px 3px rgba(47, 75, 60, 0.06);
 }
 
 * { box-sizing: border-box; }
@@ -126,7 +127,7 @@ section h2 { font-size: 1.7rem; margin-bottom: 32px; display: flex; align-items:
 .card p { font-size: 0.92rem; color: #4C5A4F; margin: 0; }
 
 /* ---------- Ablauf ---------- */
-.ablauf { background: var(--moss-bg-soft); padding: 72px 0; }
+.ablauf { background: var(--moss-bg-soft); padding: 88px 0; }
 .ablauf h2, .ablauf .num { color: var(--forest-deep); border-color: var(--ochre); }
 .steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 .steps li { display: flex; gap: 16px; }
@@ -145,7 +146,7 @@ section h2 { font-size: 1.7rem; margin-bottom: 32px; display: flex; align-items:
 .trust-list li { padding-left: 28px; position: relative; }
 .trust-list li::before { content: "✓"; position: absolute; left: 0; color: var(--ochre-dark); font-weight: 700; }
 .quote {
-  background: var(--rose); color: var(--forest-deep); border-radius: var(--radius-lg);
+  background: var(--rose-soft); color: var(--forest-deep); border-radius: var(--radius-lg);
   padding: 32px; font-size: 1.1rem; font-style: italic; margin: 0;
 }
 .quote cite { display: block; margin-top: 14px; font-size: 0.85rem; font-style: normal; opacity: 0.8; }
@@ -162,10 +163,10 @@ section h2 { font-size: 1.7rem; margin-bottom: 32px; display: flex; align-items:
 .footer-inner { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
 
 /* ---------- Spar-Rechner ---------- */
-.rechner { padding: 24px 0 72px; }
+.rechner { padding: 24px 0 88px; }
 .rechner-box {
   background: var(--moss-bg); border-radius: var(--radius-lg);
-  padding: 40px; max-width: 640px; box-shadow: var(--shadow-soft);
+  padding: 40px; max-width: 640px; margin: 0 auto; box-shadow: var(--shadow-soft);
 }
 .rechner-box label { display: block; font-weight: 700; margin-bottom: 16px; color: var(--forest-deep); }
 .rechner-box input[type="range"] {
