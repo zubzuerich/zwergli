@@ -211,15 +211,48 @@ if (inseratForm) {
   // eintippen -> passende Felder werden automatisch vorgeschlagen.
   // -----------------------------------------------------------
   const MODELL_DATENBANK = {
+    // Kinderwagen
     "bugaboo fox 3": { kategorie: "ausstattung", groesse: "Ab Geburt", beschreibung: "Hochwertiger 3-Rad-Kinderwagen von Bugaboo, geeignet ab Geburt mit passender Babyschale/Wanne. Leichtgängige Räder, gut geeignet für Stadt und leichtes Gelände." },
+    "bugaboo cameleon 3": { kategorie: "ausstattung", groesse: "Ab Geburt", beschreibung: "Bugaboos Klassiker mit grosser Wanne, wendbarem Sitz und robustem Gestell. Ab Geburt einsetzbar." },
     "stokke xplory x": { kategorie: "ausstattung", groesse: "Ab Geburt", beschreibung: "Kinderwagen von Stokke mit erhöhter Sitzposition, näher bei den Eltern. Geeignet ab Geburt mit Newborn-Set." },
+    "stokke trailz": { kategorie: "ausstattung", groesse: "Ab Geburt", beschreibung: "Geländegängiger Kinderwagen von Stokke mit erhöhter Sitzposition und grossen Rädern." },
     "joolz aer": { kategorie: "ausstattung", groesse: "Ab Geburt", beschreibung: "Leichter, kompakter Falt-Kinderwagen von Joolz. Ab Geburt einsetzbar, praktisch für Reisen dank kleinem Packmass." },
+    "joolz day": { kategorie: "ausstattung", groesse: "Ab Geburt", beschreibung: "Vielseitiger Kinderwagen von Joolz mit grossem Stauraum und wendbarem Sitz." },
+    "cybex gazelle s": { kategorie: "ausstattung", groesse: "Ab Geburt", beschreibung: "Kinderwagen von Cybex mit einhändig faltbarem Gestell, geeignet für ein oder zwei Kinder." },
+    "baby jogger city mini": { kategorie: "ausstattung", groesse: "Ab Geburt", beschreibung: "Kompakter, wendiger Kinderwagen von Baby Jogger, praktisch im Stadtverkehr." },
+    "uppababy vista": { kategorie: "ausstattung", groesse: "Ab Geburt", beschreibung: "Modulares Kinderwagen-System von UPPAbaby, erweiterbar für Geschwisterkinder." },
+    "thule sleek": { kategorie: "ausstattung", groesse: "Ab Geburt", beschreibung: "Skandinavisch designter Kinderwagen von Thule, ebenfalls erweiterbar für zwei Kinder." },
+    "quinny zapp": { kategorie: "ausstattung", groesse: "Ab 6 Monaten", beschreibung: "Leichter Buggy von Quinny, kompakt faltbar, praktisch für unterwegs." },
+    "silver cross reef": { kategorie: "ausstattung", groesse: "Ab Geburt", beschreibung: "Kinderwagen von Silver Cross mit grosszügiger Liegefläche, ab Geburt einsetzbar." },
+    "nuna mixx": { kategorie: "ausstattung", groesse: "Ab Geburt", beschreibung: "Kinderwagen von Nuna, magnetische Verschlüsse, geeignet ab Geburt mit passender Babyschale." },
+
+    // Autositze
+    "nuna pipa": { kategorie: "ausstattung", groesse: "0–13 kg (Gruppe 0+)", beschreibung: "Babyschale von Nuna, rückwärtsgerichtet, kompatibel mit vielen Kinderwagen-Systemen. Bitte vor dem Verkauf auf RecallSwiss prüfen." },
+    "nuna rava": { kategorie: "ausstattung", groesse: "0–18 kg", beschreibung: "Reboard-Autositz von Nuna mit Isofix-Basis, für Neugeborene bis ca. 4 Jahre. Bitte vor dem Verkauf auf RecallSwiss prüfen." },
     "britax römer dualfix": { kategorie: "ausstattung", groesse: "0–18 kg (Gruppe 0+/1)", beschreibung: "Reboard-Autositz von Britax Römer, drehbar, für Kinder von Geburt bis ca. 4 Jahre. Bitte vor dem Verkauf auf RecallSwiss prüfen." },
-    "maxi-cosi pearl": { kategorie: "ausstattung", groesse: "0–13 kg (Gruppe 0+)", beschreibung: "Babyschale von Maxi-Cosi für die ersten Lebensmonate, rückwärtsgerichtet. Bitte vor dem Verkauf auf RecallSwiss prüfen." },
+    "britax römer max-way": { kategorie: "ausstattung", groesse: "Ab ca. 15 kg (Gruppe 2/3)", beschreibung: "Kindersitz von Britax Römer für grössere Kinder, mitwachsend. Bitte vor dem Verkauf auf RecallSwiss prüfen." },
+    "maxi-cosi pearl 360": { kategorie: "ausstattung", groesse: "0–13 kg (Gruppe 0+)", beschreibung: "Babyschale von Maxi-Cosi für die ersten Lebensmonate, rückwärtsgerichtet, drehbar. Bitte vor dem Verkauf auf RecallSwiss prüfen." },
+    "maxi-cosi cabriofix": { kategorie: "ausstattung", groesse: "0–13 kg (Gruppe 0+)", beschreibung: "Klassische Babyschale von Maxi-Cosi, kompatibel mit vielen Kinderwagen-Systemen. Bitte vor dem Verkauf auf RecallSwiss prüfen." },
     "cybex cloud t": { kategorie: "ausstattung", groesse: "Ab Geburt bis ca. 4 Jahre", beschreibung: "Reboard-Autositz von Cybex mit langer Nutzungsdauer. Bitte vor dem Verkauf auf RecallSwiss prüfen." },
+    "cybex sirona s": { kategorie: "ausstattung", groesse: "0–18 kg", beschreibung: "Drehbarer Reboard-Autositz von Cybex mit Isofix-Basis. Bitte vor dem Verkauf auf RecallSwiss prüfen." },
+    "recaro zero.1": { kategorie: "ausstattung", groesse: "0–18 kg", beschreibung: "Reboard-Autositz von Recaro mit 360°-Drehfunktion. Bitte vor dem Verkauf auf RecallSwiss prüfen." },
+    "joie i-spin": { kategorie: "ausstattung", groesse: "0–18 kg", beschreibung: "Drehbarer Autositz von Joie, Isofix-Befestigung. Bitte vor dem Verkauf auf RecallSwiss prüfen." },
+    "besafe izi go": { kategorie: "ausstattung", groesse: "0–13 kg (Gruppe 0+)", beschreibung: "Babyschale von BeSafe, rückwärtsgerichtet für die ersten Lebensmonate. Bitte vor dem Verkauf auf RecallSwiss prüfen." },
+
+    // Hochstühle
     "chicco polly": { kategorie: "ausstattung", groesse: "Ab 6 Monaten", beschreibung: "Hochstuhl von Chicco, höhenverstellbar, mit abnehmbarem Tablett. Leicht zu reinigen." },
     "stokke tripp trapp": { kategorie: "ausstattung", groesse: "Ab 6 Monaten, mitwachsend", beschreibung: "Der Klassiker unter den mitwachsenden Holz-Hochstühlen von Stokke. Wächst vom Baby- bis ins Erwachsenenalter mit." },
+    "ikea antilop": { kategorie: "ausstattung", groesse: "Ab 6 Monaten", beschreibung: "Einfacher, leichter Hochstuhl von IKEA mit abnehmbarem Tablett." },
+    "peg perego siesta": { kategorie: "ausstattung", groesse: "Ab 6 Monaten", beschreibung: "Hochstuhl von Peg Perego, mehrfach verstellbar, mit Liegefunktion für die ersten Monate." },
+
+    // Tragen & Wippen
     "babybjörn babysitter": { kategorie: "ausstattung", groesse: "Ab Geburt", beschreibung: "Leichte Babywippe von BabyBjörn, faltbar und platzsparend. Waschbarer Bezug." },
+    "nuna leaf": { kategorie: "ausstattung", groesse: "Ab Geburt", beschreibung: "Babywippe von Nuna mit natürlicher Wiegebewegung, platzsparend faltbar." },
+    "babybjörn one": { kategorie: "ausstattung", groesse: "Ab Geburt", beschreibung: "Mitwachsende Babytrage von BabyBjörn, für verschiedene Trageweisen geeignet." },
+    "ergobaby omni 360": { kategorie: "ausstattung", groesse: "Ab Geburt", beschreibung: "Vielseitige Babytrage von Ergobaby mit vier Trageweisen, ab Geburt ohne Zusatzeinlage." },
+
+    // Reisebetten
+    "chicco next2me": { kategorie: "ausstattung", groesse: "Ab Geburt", beschreibung: "Beistellbett von Chicco, höhenverstellbar, direkt ans Elternbett andockbar." },
   };
 
   // Der Browser übernimmt die Tippvorschläge automatisch über
