@@ -23,8 +23,74 @@ menuToggle.addEventListener("click", () => {
 });
 
 // -----------------------------------------------------------
+// Marktplatz-Filter: läuft nur auf marktplatz.html, weil das
+// #listing-grid Element nur dort existiert.
+// -----------------------------------------------------------
+const listingGrid = document.querySelector("#listing-grid");
+
+if (listingGrid) {
+  const filterGroesse = document.querySelector("#filter-groesse");
+  const filterKategorie = document.querySelector("#filter-kategorie");
+  const filterRegion = document.querySelector("#filter-region");
+  const filterZustand = document.querySelector("#filter-zustand");
+  const sortierung = document.querySelector("#sortierung");
+  const suche = document.querySelector("#suche");
+  const filterCount = document.querySelector("#filter-count");
+  const keineTreffer = document.querySelector("#keine-treffer");
+
+  // Alle Inserate-Karten einmal in eine Liste holen, damit wir
+  // sie bei Bedarf immer wieder neu sortieren/anzeigen können.
+  const alleKarten = Array.from(listingGrid.querySelectorAll(".listing-card"));
+
+  // Diese Funktion wird bei jeder Filter-Änderung neu aufgerufen.
+  function filternUndSortieren() {
+    const suchtext = suche.value.trim().toLowerCase();
+    let sichtbareAnzahl = 0;
+
+    alleKarten.forEach((karte) => {
+      const titel = karte.querySelector(".listing-title").textContent.toLowerCase();
+
+      // Jede Karte muss ALLE aktiven Filter gleichzeitig erfüllen (UND-Verknüpfung)
+      const passtGroesse = filterGroesse.value === "alle" || karte.dataset.groesse === filterGroesse.value;
+      const passtKategorie = filterKategorie.value === "alle" || karte.dataset.kategorie === filterKategorie.value;
+      const passtRegion = filterRegion.value === "alle" || karte.dataset.region === filterRegion.value;
+      const passtZustand = filterZustand.value === "alle" || karte.dataset.zustand === filterZustand.value;
+      const passtSuche = suchtext === "" || titel.includes(suchtext);
+
+      const sichtbar = passtGroesse && passtKategorie && passtRegion && passtZustand && passtSuche;
+
+      karte.style.display = sichtbar ? "" : "none";
+      if (sichtbar) sichtbareAnzahl++;
+    });
+
+    // Sortierung: nur die sichtbaren Karten neu anordnen, nach Preis
+    if (sortierung.value !== "neueste") {
+      const sichtbareKarten = alleKarten.filter((k) => k.style.display !== "none");
+      sichtbareKarten.sort((a, b) => {
+        const preisA = Number(a.dataset.preis);
+        const preisB = Number(b.dataset.preis);
+        return sortierung.value === "preis-auf" ? preisA - preisB : preisB - preisA;
+      });
+      // appendChild verschiebt ein existierendes Element an die neue Position,
+      // statt es zu duplizieren
+      sichtbareKarten.forEach((karte) => listingGrid.appendChild(karte));
+    }
+
+    filterCount.textContent = `${sichtbareAnzahl} Artikel`;
+    keineTreffer.style.display = sichtbareAnzahl === 0 ? "block" : "none";
+  }
+
+  // Auf jede Filter-Änderung reagieren
+  [filterGroesse, filterKategorie, filterRegion, filterZustand, sortierung].forEach((element) => {
+    element.addEventListener("change", filternUndSortieren);
+  });
+  // "input" statt "change", damit die Suche schon beim Tippen reagiert
+  suche.addEventListener("input", filternUndSortieren);
+}
+
+// -----------------------------------------------------------
 // Spar-Rechner: reagiert auf den Schieberegler (id="artikel-slider")
-// und rechnet live aus, wie viel Geld und Wasser gespart wird.
+// und rechnet live aus, wie viel CO2 und Wasser gespart wird.
 // -----------------------------------------------------------
 const slider = document.querySelector("#artikel-slider");
 
