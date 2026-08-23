@@ -28,7 +28,19 @@
     .listing-card {
       background: var(--moss-bg-soft); border-radius: var(--radius-md);
       overflow: hidden; box-shadow: var(--shadow-soft); display: flex; flex-direction: column;
+      position: relative;
     }
+    .listing-link { display: block; color: inherit; text-decoration: none; }
+    .favorit-btn {
+      position: absolute; top: 10px; right: 10px; z-index: 2;
+      width: 34px; height: 34px; border-radius: 50%; border: none;
+      background: rgba(251,249,244,0.9); display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: var(--forest);
+    }
+    .favorit-btn svg { width: 18px; height: 18px; }
+    .favorit-btn.gemerkt { color: var(--rose); }
+    .favorit-btn.gemerkt svg { fill: var(--rose); }
+    .favoriten-filter { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; color: var(--forest-deep); margin: 18px 0 0; cursor: pointer; }
     .listing-photo {
       aspect-ratio: 4/3; background: var(--moss-bg); position: relative;
       display: flex; align-items: center; justify-content: center; color: var(--forest);
@@ -64,6 +76,7 @@
 
       <nav class="main-nav" id="main-nav">
         <a href="marktplatz.html">Marktplatz</a>
+        <a href="groessen-guide.html">Grössen-Guide</a>
         <a href="wie-es-funktioniert.html">Wie es funktioniert</a>
         <a href="ueber-uns.html">Über uns</a>
       </nav>
@@ -135,142 +148,190 @@
     <div class="wrap">
       <div class="listing-grid" id="listing-grid">
 
-        <article class="listing-card" data-groesse="86–92" data-kategorie="kleidung" data-region="winterthur" data-zustand="gut erhalten" data-preis="28">
-          <div class="listing-photo">
-            <span class="listing-condition">Gut erhalten</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 15l-5-5-9 9"/></svg>
-          </div>
-          <div class="listing-body">
-            <div class="listing-title">Winter-Schneeanzug</div>
-            <div class="listing-meta">Grösse 86–92 · Marke Reima</div>
-            <div class="listing-footer">
-              <span class="listing-price">CHF 28.–</span>
-              <span class="listing-region">Winterthur</span>
+        <article class="listing-card" data-id="1" data-groesse="86–92" data-kategorie="kleidung" data-region="winterthur" data-zustand="gut erhalten" data-preis="28">
+          <button class="favorit-btn" aria-label="Merken" data-id="1">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-4.35-9.5-8.5C.5 8.5 3 5 6.5 5c2 0 3.5 1 5.5 3 2-2 3.5-3 5.5-3 3.5 0 6 3.5 4 7.5C19 16.65 12 21 12 21z"/></svg>
+          </button>
+          <a href="inserat-detail.html?id=1" class="listing-link">
+            <div class="listing-photo">
+              <span class="listing-condition">Gut erhalten</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 15l-5-5-9 9"/></svg>
             </div>
-          </div>
+            <div class="listing-body">
+              <div class="listing-title">Winter-Schneeanzug</div>
+              <div class="listing-meta">Grösse 86–92 · Marke Reima</div>
+              <div class="listing-footer">
+                <span class="listing-price">CHF 28.–</span>
+                <span class="listing-region">Winterthur</span>
+              </div>
+            </div>
+          </a>
         </article>
 
-        <article class="listing-card" data-groesse="62" data-kategorie="kleidung" data-region="zürich" data-zustand="neuwertig" data-preis="12">
-          <div class="listing-photo">
-            <span class="listing-condition">Neuwertig</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 15l-5-5-9 9"/></svg>
-          </div>
-          <div class="listing-body">
-            <div class="listing-title">3er-Set Bodies langarm</div>
-            <div class="listing-meta">Grösse 62 · Bio-Baumwolle</div>
-            <div class="listing-footer">
-              <span class="listing-price">CHF 12.–</span>
-              <span class="listing-region">Zürich</span>
+        <article class="listing-card" data-id="2" data-groesse="62" data-kategorie="kleidung" data-region="zürich" data-zustand="neuwertig" data-preis="12">
+          <button class="favorit-btn" aria-label="Merken" data-id="2">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-4.35-9.5-8.5C.5 8.5 3 5 6.5 5c2 0 3.5 1 5.5 3 2-2 3.5-3 5.5-3 3.5 0 6 3.5 4 7.5C19 16.65 12 21 12 21z"/></svg>
+          </button>
+          <a href="inserat-detail.html?id=2" class="listing-link">
+            <div class="listing-photo">
+              <span class="listing-condition">Neuwertig</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 15l-5-5-9 9"/></svg>
             </div>
-          </div>
+            <div class="listing-body">
+              <div class="listing-title">3er-Set Bodies langarm</div>
+              <div class="listing-meta">Grösse 62 · Bio-Baumwolle</div>
+              <div class="listing-footer">
+                <span class="listing-price">CHF 12.–</span>
+                <span class="listing-region">Zürich</span>
+              </div>
+            </div>
+          </a>
         </article>
 
-        <article class="listing-card" data-groesse="ab geburt" data-kategorie="ausstattung" data-region="uster" data-zustand="gut erhalten" data-preis="240">
-          <div class="listing-photo">
-            <span class="listing-condition">Gut erhalten</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 15l-5-5-9 9"/></svg>
-          </div>
-          <div class="listing-body">
-            <div class="listing-title">Kinderwagen 3-in-1</div>
-            <div class="listing-meta">Ab Geburt · inkl. Babyschale</div>
-            <div class="listing-footer">
-              <span class="listing-price">CHF 240.–</span>
-              <span class="listing-region">Uster</span>
+        <article class="listing-card" data-id="3" data-groesse="ab geburt" data-kategorie="ausstattung" data-region="uster" data-zustand="gut erhalten" data-preis="240">
+          <button class="favorit-btn" aria-label="Merken" data-id="3">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-4.35-9.5-8.5C.5 8.5 3 5 6.5 5c2 0 3.5 1 5.5 3 2-2 3.5-3 5.5-3 3.5 0 6 3.5 4 7.5C19 16.65 12 21 12 21z"/></svg>
+          </button>
+          <a href="inserat-detail.html?id=3" class="listing-link">
+            <div class="listing-photo">
+              <span class="listing-condition">Gut erhalten</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 15l-5-5-9 9"/></svg>
             </div>
-          </div>
+            <div class="listing-body">
+              <div class="listing-title">Kinderwagen 3-in-1</div>
+              <div class="listing-meta">Ab Geburt · inkl. Babyschale</div>
+              <div class="listing-footer">
+                <span class="listing-price">CHF 240.–</span>
+                <span class="listing-region">Uster</span>
+              </div>
+            </div>
+          </a>
         </article>
 
-        <article class="listing-card" data-groesse="21" data-kategorie="schuhe" data-region="winterthur" data-zustand="sichtbar getragen" data-preis="8">
-          <div class="listing-photo">
-            <span class="listing-condition">Sichtbar getragen</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 15l-5-5-9 9"/></svg>
-          </div>
-          <div class="listing-body">
-            <div class="listing-title">Lauflernschuhe</div>
-            <div class="listing-meta">Grösse 21 · Leder</div>
-            <div class="listing-footer">
-              <span class="listing-price">CHF 8.–</span>
-              <span class="listing-region">Winterthur</span>
+        <article class="listing-card" data-id="4" data-groesse="21" data-kategorie="schuhe" data-region="winterthur" data-zustand="sichtbar getragen" data-preis="8">
+          <button class="favorit-btn" aria-label="Merken" data-id="4">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-4.35-9.5-8.5C.5 8.5 3 5 6.5 5c2 0 3.5 1 5.5 3 2-2 3.5-3 5.5-3 3.5 0 6 3.5 4 7.5C19 16.65 12 21 12 21z"/></svg>
+          </button>
+          <a href="inserat-detail.html?id=4" class="listing-link">
+            <div class="listing-photo">
+              <span class="listing-condition">Sichtbar getragen</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 15l-5-5-9 9"/></svg>
             </div>
-          </div>
+            <div class="listing-body">
+              <div class="listing-title">Lauflernschuhe</div>
+              <div class="listing-meta">Grösse 21 · Leder</div>
+              <div class="listing-footer">
+                <span class="listing-price">CHF 8.–</span>
+                <span class="listing-region">Winterthur</span>
+              </div>
+            </div>
+          </a>
         </article>
 
-        <article class="listing-card" data-groesse="ab 1 jahr" data-kategorie="spielzeug" data-region="bern" data-zustand="gut erhalten" data-preis="18">
-          <div class="listing-photo">
-            <span class="listing-condition">Gut erhalten</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 15l-5-5-9 9"/></svg>
-          </div>
-          <div class="listing-body">
-            <div class="listing-title">Holzbausteine, 40-teilig</div>
-            <div class="listing-meta">Ab 1 Jahr · FSC-zertifiziert</div>
-            <div class="listing-footer">
-              <span class="listing-price">CHF 18.–</span>
-              <span class="listing-region">Bern</span>
+        <article class="listing-card" data-id="5" data-groesse="ab 1 jahr" data-kategorie="spielzeug" data-region="bern" data-zustand="gut erhalten" data-preis="18">
+          <button class="favorit-btn" aria-label="Merken" data-id="5">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-4.35-9.5-8.5C.5 8.5 3 5 6.5 5c2 0 3.5 1 5.5 3 2-2 3.5-3 5.5-3 3.5 0 6 3.5 4 7.5C19 16.65 12 21 12 21z"/></svg>
+          </button>
+          <a href="inserat-detail.html?id=5" class="listing-link">
+            <div class="listing-photo">
+              <span class="listing-condition">Gut erhalten</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 15l-5-5-9 9"/></svg>
             </div>
-          </div>
+            <div class="listing-body">
+              <div class="listing-title">Holzbausteine, 40-teilig</div>
+              <div class="listing-meta">Ab 1 Jahr · FSC-zertifiziert</div>
+              <div class="listing-footer">
+                <span class="listing-price">CHF 18.–</span>
+                <span class="listing-region">Bern</span>
+              </div>
+            </div>
+          </a>
         </article>
 
-        <article class="listing-card" data-groesse="ab geburt" data-kategorie="ausstattung" data-region="aarau" data-zustand="neuwertig" data-preis="95">
-          <div class="listing-photo">
-            <span class="listing-condition">Neuwertig</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 15l-5-5-9 9"/></svg>
-          </div>
-          <div class="listing-body">
-            <div class="listing-title">Reboard-Autositz</div>
-            <div class="listing-meta">0–18 kg · Baujahr 2024</div>
-            <div class="listing-footer">
-              <span class="listing-price">CHF 95.–</span>
-              <span class="listing-region">Aarau</span>
+        <article class="listing-card" data-id="6" data-groesse="ab geburt" data-kategorie="ausstattung" data-region="aarau" data-zustand="neuwertig" data-preis="95">
+          <button class="favorit-btn" aria-label="Merken" data-id="6">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-4.35-9.5-8.5C.5 8.5 3 5 6.5 5c2 0 3.5 1 5.5 3 2-2 3.5-3 5.5-3 3.5 0 6 3.5 4 7.5C19 16.65 12 21 12 21z"/></svg>
+          </button>
+          <a href="inserat-detail.html?id=6" class="listing-link">
+            <div class="listing-photo">
+              <span class="listing-condition">Neuwertig</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 15l-5-5-9 9"/></svg>
             </div>
-          </div>
+            <div class="listing-body">
+              <div class="listing-title">Reboard-Autositz</div>
+              <div class="listing-meta">0–18 kg · Baujahr 2024</div>
+              <div class="listing-footer">
+                <span class="listing-price">CHF 95.–</span>
+                <span class="listing-region">Aarau</span>
+              </div>
+            </div>
+          </a>
         </article>
 
-        <article class="listing-card" data-groesse="104" data-kategorie="kleidung" data-region="zürich" data-zustand="gut erhalten" data-preis="15">
-          <div class="listing-photo">
-            <span class="listing-condition">Gut erhalten</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 15l-5-5-9 9"/></svg>
-          </div>
-          <div class="listing-body">
-            <div class="listing-title">Frühling-Jacke</div>
-            <div class="listing-meta">Grösse 104 · wasserdicht</div>
-            <div class="listing-footer">
-              <span class="listing-price">CHF 15.–</span>
-              <span class="listing-region">Zürich</span>
+        <article class="listing-card" data-id="7" data-groesse="104" data-kategorie="kleidung" data-region="zürich" data-zustand="gut erhalten" data-preis="15">
+          <button class="favorit-btn" aria-label="Merken" data-id="7">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-4.35-9.5-8.5C.5 8.5 3 5 6.5 5c2 0 3.5 1 5.5 3 2-2 3.5-3 5.5-3 3.5 0 6 3.5 4 7.5C19 16.65 12 21 12 21z"/></svg>
+          </button>
+          <a href="inserat-detail.html?id=7" class="listing-link">
+            <div class="listing-photo">
+              <span class="listing-condition">Gut erhalten</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 15l-5-5-9 9"/></svg>
             </div>
-          </div>
+            <div class="listing-body">
+              <div class="listing-title">Frühling-Jacke</div>
+              <div class="listing-meta">Grösse 104 · wasserdicht</div>
+              <div class="listing-footer">
+                <span class="listing-price">CHF 15.–</span>
+                <span class="listing-region">Zürich</span>
+              </div>
+            </div>
+          </a>
         </article>
 
-        <article class="listing-card" data-groesse="ab 2 jahre" data-kategorie="spielzeug" data-region="winterthur" data-zustand="sichtbar getragen" data-preis="20">
-          <div class="listing-photo">
-            <span class="listing-condition">Sichtbar getragen</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 15l-5-5-9 9"/></svg>
-          </div>
-          <div class="listing-body">
-            <div class="listing-title">Bilderbuch-Kiste, 12 Stück</div>
-            <div class="listing-meta">Ab 2 Jahre · gemischt</div>
-            <div class="listing-footer">
-              <span class="listing-price">CHF 20.–</span>
-              <span class="listing-region">Winterthur</span>
+        <article class="listing-card" data-id="8" data-groesse="ab 2 jahre" data-kategorie="spielzeug" data-region="winterthur" data-zustand="sichtbar getragen" data-preis="20">
+          <button class="favorit-btn" aria-label="Merken" data-id="8">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-4.35-9.5-8.5C.5 8.5 3 5 6.5 5c2 0 3.5 1 5.5 3 2-2 3.5-3 5.5-3 3.5 0 6 3.5 4 7.5C19 16.65 12 21 12 21z"/></svg>
+          </button>
+          <a href="inserat-detail.html?id=8" class="listing-link">
+            <div class="listing-photo">
+              <span class="listing-condition">Sichtbar getragen</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 15l-5-5-9 9"/></svg>
             </div>
-          </div>
+            <div class="listing-body">
+              <div class="listing-title">Bilderbuch-Kiste, 12 Stück</div>
+              <div class="listing-meta">Ab 2 Jahre · gemischt</div>
+              <div class="listing-footer">
+                <span class="listing-price">CHF 20.–</span>
+                <span class="listing-region">Winterthur</span>
+              </div>
+            </div>
+          </a>
         </article>
 
-        <article class="listing-card" data-groesse="ab 6 monaten" data-kategorie="ausstattung" data-region="st. gallen" data-zustand="neuwertig" data-preis="60">
-          <div class="listing-photo">
-            <span class="listing-condition">Neuwertig</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 15l-5-5-9 9"/></svg>
-          </div>
-          <div class="listing-body">
-            <div class="listing-title">Hochstuhl mitwachsend</div>
-            <div class="listing-meta">Holz, ab 6 Monaten</div>
-            <div class="listing-footer">
-              <span class="listing-price">CHF 60.–</span>
-              <span class="listing-region">St. Gallen</span>
+        <article class="listing-card" data-id="9" data-groesse="ab 6 monaten" data-kategorie="ausstattung" data-region="st. gallen" data-zustand="neuwertig" data-preis="60">
+          <button class="favorit-btn" aria-label="Merken" data-id="9">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-4.35-9.5-8.5C.5 8.5 3 5 6.5 5c2 0 3.5 1 5.5 3 2-2 3.5-3 5.5-3 3.5 0 6 3.5 4 7.5C19 16.65 12 21 12 21z"/></svg>
+          </button>
+          <a href="inserat-detail.html?id=9" class="listing-link">
+            <div class="listing-photo">
+              <span class="listing-condition">Neuwertig</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 15l-5-5-9 9"/></svg>
             </div>
-          </div>
+            <div class="listing-body">
+              <div class="listing-title">Hochstuhl mitwachsend</div>
+              <div class="listing-meta">Holz, ab 6 Monaten</div>
+              <div class="listing-footer">
+                <span class="listing-price">CHF 60.–</span>
+                <span class="listing-region">St. Gallen</span>
+              </div>
+            </div>
+          </a>
         </article>
 
       </div>
+      <label class="favoriten-filter">
+        <input type="checkbox" id="nur-favoriten" /> Nur gemerkte Artikel zeigen
+      </label>
       <p id="keine-treffer" class="hero-sub" style="display: none; text-align: center; padding: 40px 0;">Keine Artikel gefunden. Versuch andere Filter-Einstellungen.</p>
     </div>
   </section>

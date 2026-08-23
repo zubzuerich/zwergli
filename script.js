@@ -23,6 +23,111 @@ menuToggle.addEventListener("click", () => {
 });
 
 // -----------------------------------------------------------
+// Daten aller 9 Beispiel-Inserate an einer Stelle, damit sowohl
+// die Marktplatz-Filter als auch die Detailseite darauf zugreifen
+// können, ohne die Angaben zweimal pflegen zu müssen.
+// -----------------------------------------------------------
+const INSERATE_DATEN = {
+  1: { titel: "Winter-Schneeanzug", preis: 28, zustand: "Gut erhalten", groesse: "86–92", region: "Winterthur", kategorie: "Kleidung", beschreibung: "Warmer, wasserdichter Schneeanzug von Reima. Wurde einen Winter lang getragen, keine Flecken oder Risse, Reissverschluss funktioniert einwandfrei." },
+  2: { titel: "3er-Set Bodies langarm", preis: 12, zustand: "Neuwertig", groesse: "62", region: "Zürich", kategorie: "Kleidung", beschreibung: "Drei langärmlige Bodies aus Bio-Baumwolle, kaum getragen weil zu schnell herausgewachsen. Keine Flecken, alle Knöpfe intakt." },
+  3: { titel: "Kinderwagen 3-in-1", preis: 240, zustand: "Gut erhalten", groesse: "Ab Geburt", region: "Uster", kategorie: "Ausstattung", beschreibung: "3-in-1 System inklusive Babyschale, Wanne und Sportsitz. Normale Gebrauchsspuren an den Rädern, Gestell und Stoffe in gutem Zustand." },
+  4: { titel: "Lauflernschuhe", preis: 8, zustand: "Sichtbar getragen", groesse: "21", region: "Winterthur", kategorie: "Schuhe", beschreibung: "Echtleder-Lauflernschuhe, sichtbar getragen aber Sohle noch in Ordnung. Ideal als Übergangsschuh für die kurze Lauflern-Phase." },
+  5: { titel: "Holzbausteine, 40-teilig", preis: 18, zustand: "Gut erhalten", groesse: "Ab 1 Jahr", region: "Bern", kategorie: "Spielzeug", beschreibung: "FSC-zertifizierte Holzbausteine in verschiedenen Formen und Farben, in stabiler Aufbewahrungskiste. Alle 40 Teile vollständig vorhanden." },
+  6: { titel: "Reboard-Autositz", preis: 95, zustand: "Neuwertig", groesse: "0–18 kg", region: "Aarau", kategorie: "Ausstattung", beschreibung: "Kaum genutzter Reboard-Autositz, Baujahr 2024. Kein Unfall, keine Stürze. Ablaufdatum am Sitz vermerkt, bitte vor Kauf selbst prüfen." },
+  7: { titel: "Frühling-Jacke", preis: 15, zustand: "Gut erhalten", groesse: "104", region: "Zürich", kategorie: "Kleidung", beschreibung: "Wasserdichte Übergangsjacke, gut erhalten mit leichten Gebrauchsspuren an den Ärmelbündchen. Reissverschluss und Kapuze intakt." },
+  8: { titel: "Bilderbuch-Kiste, 12 Stück", preis: 20, zustand: "Sichtbar getragen", groesse: "Ab 2 Jahre", region: "Winterthur", kategorie: "Spielzeug", beschreibung: "Gemischte Sammlung von 12 Bilderbüchern, unterschiedliche Themen. Normale Lese-Gebrauchsspuren, alle Seiten vollständig." },
+  9: { titel: "Hochstuhl mitwachsend", preis: 60, zustand: "Neuwertig", groesse: "Ab 6 Monaten", region: "St. Gallen", kategorie: "Ausstattung", beschreibung: "Mitwachsender Holz-Hochstuhl, kaum benutzt. Sitzhöhe und Fussstütze verstellbar, wächst vom Baby- bis ins Kindesalter mit." },
+};
+
+// -----------------------------------------------------------
+// Inserat-Detailseite: läuft nur auf inserat-detail.html
+// -----------------------------------------------------------
+const detailContainer = document.querySelector("#inserat-detail");
+
+if (detailContainer) {
+  // Die ID kommt aus der URL, z.B. inserat-detail.html?id=3
+  const parameter = new URLSearchParams(window.location.search);
+  const id = parameter.get("id");
+  const artikel = INSERATE_DATEN[id];
+
+  if (artikel) {
+    document.title = `${artikel.titel} – Zwergli`;
+    document.querySelector("#detail-titel").textContent = artikel.titel;
+    document.querySelector("#detail-preis").textContent = `CHF ${artikel.preis}.–`;
+    document.querySelector("#detail-zustand").textContent = artikel.zustand;
+    document.querySelector("#detail-groesse").textContent = artikel.groesse;
+    document.querySelector("#detail-region").textContent = artikel.region;
+    document.querySelector("#detail-kategorie").textContent = artikel.kategorie;
+    document.querySelector("#detail-beschreibung").textContent = artikel.beschreibung;
+  } else {
+    // Falls die ID in der URL fehlt oder ungültig ist
+    detailContainer.innerHTML = "<p>Dieses Inserat wurde nicht gefunden.</p>";
+  }
+}
+
+// -----------------------------------------------------------
+// Grössen-Guide: läuft nur auf groessen-guide.html
+// -----------------------------------------------------------
+const geburtsdatumInput = document.querySelector("#geburtsdatum");
+
+if (geburtsdatumInput) {
+  const guideResults = document.querySelector("#guide-results");
+  const aktuelleGroesse = document.querySelector("#aktuelle-groesse");
+  const aktuelleSchuhgroesse = document.querySelector("#aktuelle-schuhgroesse");
+  const naechsteGroesse = document.querySelector("#naechste-groesse");
+  const naechsteSchuhgroesse = document.querySelector("#naechste-schuhgroesse");
+
+  // Richtwerte für gängige CH/EU-Kindergrössen nach Alter in Monaten.
+  // "bis" ist exklusiv (z.B. 0-1 heisst: ab Geburt bis kurz vor 1 Monat)
+  const GROESSEN_TABELLE = [
+    { bis: 1, kleidung: "50–56", schuh: "–" },
+    { bis: 3, kleidung: "56–62", schuh: "–" },
+    { bis: 6, kleidung: "62–68", schuh: "16–17" },
+    { bis: 9, kleidung: "68–74", schuh: "18–19" },
+    { bis: 12, kleidung: "74–80", schuh: "19–20" },
+    { bis: 18, kleidung: "80–86", schuh: "20–22" },
+    { bis: 24, kleidung: "86–92", schuh: "23–24" },
+    { bis: 36, kleidung: "92–98", schuh: "24–27" },
+    { bis: 48, kleidung: "98–104", schuh: "27–29" },
+    { bis: 60, kleidung: "104–110", schuh: "29–30" },
+    { bis: 72, kleidung: "110–116", schuh: "30–32" },
+    { bis: 84, kleidung: "116–122", schuh: "32–33" },
+    { bis: 96, kleidung: "122–128", schuh: "33–34" },
+  ];
+
+  geburtsdatumInput.addEventListener("change", () => {
+    if (!geburtsdatumInput.value) return;
+
+    const geburtsdatum = new Date(geburtsdatumInput.value);
+    const heute = new Date();
+
+    // Alter in Monaten berechnen (grob, aber genau genug für Kleidergrössen)
+    let alterInMonaten =
+      (heute.getFullYear() - geburtsdatum.getFullYear()) * 12 +
+      (heute.getMonth() - geburtsdatum.getMonth());
+    if (alterInMonaten < 0) alterInMonaten = 0;
+
+    // Passende Zeile in der Tabelle finden (die erste, deren "bis" grösser ist)
+    const aktuellerIndex = GROESSEN_TABELLE.findIndex((zeile) => alterInMonaten < zeile.bis);
+    const aktuelleZeile = GROESSEN_TABELLE[aktuellerIndex] ?? GROESSEN_TABELLE[GROESSEN_TABELLE.length - 1];
+    const naechsteZeile = GROESSEN_TABELLE[aktuellerIndex + 1];
+
+    aktuelleGroesse.textContent = aktuelleZeile.kleidung;
+    aktuelleSchuhgroesse.textContent = `Schuhgrösse ${aktuelleZeile.schuh}`;
+
+    if (naechsteZeile) {
+      naechsteGroesse.textContent = naechsteZeile.kleidung;
+      naechsteSchuhgroesse.textContent = `Schuhgrösse ${naechsteZeile.schuh}`;
+    } else {
+      naechsteGroesse.textContent = "–";
+      naechsteSchuhgroesse.textContent = "Ausserhalb der Tabelle";
+    }
+
+    guideResults.classList.add("sichtbar");
+  });
+}
+
+// -----------------------------------------------------------
 // Inserat-Formular: läuft nur auf inserat-erstellen.html, weil
 // das Formular-Element (id="inserat-form") nur dort existiert.
 // -----------------------------------------------------------
@@ -92,14 +197,57 @@ if (listingGrid) {
   const suche = document.querySelector("#suche");
   const filterCount = document.querySelector("#filter-count");
   const keineTreffer = document.querySelector("#keine-treffer");
+  const nurFavoriten = document.querySelector("#nur-favoriten");
 
   // Alle Inserate-Karten einmal in eine Liste holen, damit wir
   // sie bei Bedarf immer wieder neu sortieren/anzeigen können.
   const alleKarten = Array.from(listingGrid.querySelectorAll(".listing-card"));
 
+  // -----------------------------------------------------------
+  // Merkliste: gemerkte Artikel-IDs werden im localStorage
+  // gespeichert, damit sie auch nach einem Neuladen der Seite
+  // noch da sind (localStorage bleibt im Browser erhalten).
+  // -----------------------------------------------------------
+  function gemerkteIdsLesen() {
+    const gespeichert = localStorage.getItem("zwergli-merkliste");
+    return gespeichert ? JSON.parse(gespeichert) : [];
+  }
+
+  function gemerkteIdsSchreiben(ids) {
+    localStorage.setItem("zwergli-merkliste", JSON.stringify(ids));
+  }
+
+  // Beim Laden: Herzen einfärben, falls der Artikel schon gemerkt ist
+  const gemerkteIds = gemerkteIdsLesen();
+  document.querySelectorAll(".favorit-btn").forEach((button) => {
+    if (gemerkteIds.includes(button.dataset.id)) {
+      button.classList.add("gemerkt");
+    }
+
+    button.addEventListener("click", (ereignis) => {
+      // Verhindert, dass der Klick auch den umliegenden Link (zur Detailseite) auslöst
+      ereignis.preventDefault();
+      ereignis.stopPropagation();
+
+      const aktuelleIds = gemerkteIdsLesen();
+      const istGemerkt = aktuelleIds.includes(button.dataset.id);
+
+      const neueIds = istGemerkt
+        ? aktuelleIds.filter((id) => id !== button.dataset.id)
+        : [...aktuelleIds, button.dataset.id];
+
+      gemerkteIdsSchreiben(neueIds);
+      button.classList.toggle("gemerkt", !istGemerkt);
+
+      // Falls der "Nur Favoriten"-Filter aktiv ist, sofort neu filtern
+      if (nurFavoriten && nurFavoriten.checked) filternUndSortieren();
+    });
+  });
+
   // Diese Funktion wird bei jeder Filter-Änderung neu aufgerufen.
   function filternUndSortieren() {
     const suchtext = suche.value.trim().toLowerCase();
+    const aktuelleFavoriten = gemerkteIdsLesen();
     let sichtbareAnzahl = 0;
 
     alleKarten.forEach((karte) => {
@@ -111,8 +259,9 @@ if (listingGrid) {
       const passtRegion = filterRegion.value === "alle" || karte.dataset.region === filterRegion.value;
       const passtZustand = filterZustand.value === "alle" || karte.dataset.zustand === filterZustand.value;
       const passtSuche = suchtext === "" || titel.includes(suchtext);
+      const passtFavorit = !nurFavoriten.checked || aktuelleFavoriten.includes(karte.dataset.id);
 
-      const sichtbar = passtGroesse && passtKategorie && passtRegion && passtZustand && passtSuche;
+      const sichtbar = passtGroesse && passtKategorie && passtRegion && passtZustand && passtSuche && passtFavorit;
 
       karte.style.display = sichtbar ? "" : "none";
       if (sichtbar) sichtbareAnzahl++;
@@ -136,7 +285,7 @@ if (listingGrid) {
   }
 
   // Auf jede Filter-Änderung reagieren
-  [filterGroesse, filterKategorie, filterRegion, filterZustand, sortierung].forEach((element) => {
+  [filterGroesse, filterKategorie, filterRegion, filterZustand, sortierung, nurFavoriten].forEach((element) => {
     element.addEventListener("change", filternUndSortieren);
   });
   // "input" statt "change", damit die Suche schon beim Tippen reagiert
