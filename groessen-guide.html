@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="de-CH">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grössen-Guide – Zwergli</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Karla:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .guide-section { padding: 40px 0 80px; }
+    .guide-box {
+      background: var(--moss-bg); border-radius: var(--radius-lg);
+      padding: 40px; max-width: 640px; box-shadow: var(--shadow-soft);
+    }
+    .guide-box label { display: block; font-weight: 700; color: var(--forest-deep); margin-bottom: 10px; }
+    .guide-box input[type="date"] {
+      width: 100%; font-family: var(--font-body); font-size: 0.95rem;
+      padding: 11px 14px; border-radius: var(--radius-md); border: 2px solid rgba(47,75,60,0.15);
+      background: var(--cream); color: var(--ink); margin-bottom: 8px;
+    }
+    .guide-hinweis { font-size: 0.82rem; color: #5B6A5E; margin-bottom: 24px; }
+    .guide-results { display: none; }
+    .guide-results.sichtbar { display: block; }
+    .groessen-karten { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 10px; }
+    .groessen-karte { background: var(--cream); border-radius: var(--radius-md); padding: 20px; }
+    .groessen-karte .etikett { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ochre-dark); margin-bottom: 8px; }
+    .groessen-karte .wert { font-family: var(--font-display); font-size: 1.4rem; color: var(--forest-deep); }
+    .groessen-karte .detail { font-size: 0.82rem; color: #5B6A5E; margin-top: 4px; }
+    .guide-cta { margin-top: 24px; }
+    .guide-disclaimer { font-size: 0.78rem; color: #5B6A5E; margin-top: 20px; }
+  </style>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a href="index.html" class="logo">Zwergli<span class="logo-dot">.</span></a>
+
+      <nav class="main-nav" id="main-nav">
+        <a href="marktplatz.html">Marktplatz</a>
+        <a href="groessen-guide.html">Grössen-Guide</a>
+        <a href="wie-es-funktioniert.html">Wie es funktioniert</a>
+        <a href="ueber-uns.html">Über uns</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="btn btn-ghost" id="menu-toggle" aria-label="Menü öffnen" aria-expanded="false">☰</button>
+        <a href="inserat-erstellen.html" class="btn btn-primary">Jetzt verkaufen</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== INTRO ===== -->
+  <section class="marktplatz-intro" style="padding: 40px 0 8px;">
+    <div class="wrap">
+      <p class="eyebrow">Grössen-Guide</p>
+      <h1 style="max-width: 26ch; font-size: clamp(1.7rem, 3.5vw, 2.3rem);">Welche Grösse braucht mein Kind gerade – und bald?</h1>
+      <p class="hero-sub" style="max-width: 60ch; margin-top: 12px;">
+        Gib das Geburtsdatum deines Kindes ein, und wir zeigen dir die ungefähr passende Kleider- und Schuhgrösse – plus die nächste Grösse, auf die du schon achten kannst.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== GUIDE ===== -->
+  <section class="guide-section">
+    <div class="wrap">
+      <div class="guide-box">
+        <label for="geburtsdatum">Geburtsdatum deines Kindes</label>
+        <input type="date" id="geburtsdatum" />
+        <p class="guide-hinweis">Bleibt nur in deinem Browser – wird nirgends gespeichert oder verschickt.</p>
+
+        <div class="guide-results" id="guide-results">
+          <div class="groessen-karten">
+            <div class="groessen-karte">
+              <div class="etikett">Aktuell passend</div>
+              <div class="wert" id="aktuelle-groesse">–</div>
+              <div class="detail" id="aktuelle-schuhgroesse">Schuhgrösse –</div>
+            </div>
+            <div class="groessen-karte">
+              <div class="etikett">Bald dazukommen</div>
+              <div class="wert" id="naechste-groesse">–</div>
+              <div class="detail" id="naechste-schuhgroesse">Schuhgrösse –</div>
+            </div>
+          </div>
+          <a href="marktplatz.html" class="btn btn-primary btn-lg guide-cta">Passende Artikel im Marktplatz ansehen</a>
+        </div>
+
+        <p class="guide-disclaimer">Richtwerte auf Basis gängiger CH/EU-Kindergrössen – jede Marke schneidet leicht anders, im Zweifel lieber eine Nummer grösser wählen.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <span>© 2026 Zwergli · Ein Transferarbeit-Projekt</span>
+      <span>Made in Winterthur, Schweiz</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
