@@ -23,6 +23,53 @@ menuToggle.addEventListener("click", () => {
 });
 
 // -----------------------------------------------------------
+// Inserat-Formular: läuft nur auf inserat-erstellen.html, weil
+// das Formular-Element (id="inserat-form") nur dort existiert.
+// -----------------------------------------------------------
+const inseratForm = document.querySelector("#inserat-form");
+
+if (inseratForm) {
+  const fotosInput = document.querySelector("#fotos");
+  const fotoPreview = document.querySelector("#foto-preview");
+  const bestaetigung = document.querySelector("#bestaetigung");
+  const bestaetigungText = document.querySelector("#bestaetigung-text");
+
+  // Sobald Fotos ausgewählt werden, zeigen wir sie direkt im Browser an.
+  // FileReader liest die Datei ein und wandelt sie in eine Vorschau um,
+  // OHNE sie irgendwohin hochzuladen – das passiert komplett lokal.
+  fotosInput.addEventListener("change", () => {
+    fotoPreview.innerHTML = ""; // vorherige Vorschau leeren
+
+    // Nur die ersten 3 ausgewählten Dateien anzeigen
+    const dateien = Array.from(fotosInput.files).slice(0, 3);
+
+    dateien.forEach((datei) => {
+      const reader = new FileReader();
+      reader.addEventListener("load", () => {
+        const bild = document.createElement("img");
+        bild.src = reader.result;
+        fotoPreview.appendChild(bild);
+      });
+      reader.readAsDataURL(datei);
+    });
+  });
+
+  // Beim Absenden: Seite NICHT neu laden (das würde der Browser sonst
+  // automatisch tun), sondern stattdessen die Bestätigung einblenden.
+  inseratForm.addEventListener("submit", (ereignis) => {
+    ereignis.preventDefault();
+
+    const titel = document.querySelector("#titel").value;
+    bestaetigungText.textContent = titel
+      ? `"${titel}" wäre jetzt für andere Familien auf Zwergli sichtbar.`
+      : "Dein Artikel wäre jetzt für andere Familien auf Zwergli sichtbar.";
+
+    inseratForm.style.display = "none";
+    bestaetigung.style.display = "block";
+  });
+}
+
+// -----------------------------------------------------------
 // Marktplatz-Filter: läuft nur auf marktplatz.html, weil das
 // #listing-grid Element nur dort existiert.
 // -----------------------------------------------------------
