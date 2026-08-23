@@ -33,6 +33,14 @@ if (inseratForm) {
   const fotoPreview = document.querySelector("#foto-preview");
   const bestaetigung = document.querySelector("#bestaetigung");
   const bestaetigungText = document.querySelector("#bestaetigung-text");
+  const kategorieSelect = document.querySelector("#kategorie");
+  const sicherheitsHinweis = document.querySelector("#sicherheits-hinweis");
+
+  // Sicherheitshinweis nur einblenden, wenn "Ausstattung" gewählt ist
+  // (dort finden sich Autositze, Kinderwagen, Hochstühle etc.)
+  kategorieSelect.addEventListener("change", () => {
+    sicherheitsHinweis.style.display = kategorieSelect.value === "ausstattung" ? "flex" : "none";
+  });
 
   // Sobald Fotos ausgewählt werden, zeigen wir sie direkt im Browser an.
   // FileReader liest die Datei ein und wandelt sie in eine Vorschau um,

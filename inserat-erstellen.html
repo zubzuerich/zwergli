@@ -38,6 +38,15 @@
 
     .form-submit { width: 100%; justify-content: center; margin-top: 8px; }
 
+    .sicherheits-hinweis {
+      display: flex; gap: 12px; background: var(--rose); border-radius: var(--radius-md);
+      padding: 16px 18px; align-items: flex-start;
+    }
+    .sicherheits-hinweis strong { display: block; color: var(--forest-deep); font-size: 0.92rem; margin-bottom: 4px; }
+    .sicherheits-hinweis p { margin: 0; font-size: 0.85rem; color: var(--forest-deep); line-height: 1.5; }
+    .sicherheits-hinweis a { text-decoration: underline; font-weight: 700; }
+    .sicherheits-hinweis svg { flex-shrink: 0; margin-top: 2px; }
+
     .bestaetigung { display: none; text-align: center; padding: 20px 0; }
     .bestaetigung .haken {
       width: 64px; height: 64px; border-radius: 50%; background: var(--ochre);
@@ -110,13 +119,22 @@
               <option value="">Bitte wählen</option>
               <option value="kleidung">Kleidung</option>
               <option value="spielzeug">Spielzeug &amp; Bücher</option>
-              <option value="ausstattung">Ausstattung</option>
+              <option value="ausstattung">Ausstattung (Kinderwagen, Autositz, Möbel …)</option>
               <option value="schuhe">Schuhe</option>
             </select>
           </div>
           <div class="form-row">
             <label for="groesse">Grösse</label>
             <input type="text" id="groesse" placeholder="z.B. 92 oder Ab 6 Monaten" required />
+          </div>
+        </div>
+
+        <!-- Sicherheitshinweis: erscheint nur bei sicherheitsrelevanten Kategorien -->
+        <div class="form-row sicherheits-hinweis" id="sicherheits-hinweis" style="display: none;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--forest-deep)" stroke-width="1.8" width="22" height="22"><path d="M12 2 L20 6 V12 C20 17 16.5 20.5 12 22 C7.5 20.5 4 17 4 12 V6 Z"/><path d="M9 12 L11 14 L15 9"/></svg>
+          <div>
+            <strong>Sicherheitshinweis für Autositze, Kinderwagen &amp; Co.</strong>
+            <p>Bitte prüf vor dem Verkauf, ob dein Artikel auf <a href="https://www.recallswiss.admin.ch" target="_blank" rel="noopener">RecallSwiss</a> (offizielle Rückruf-Datenbank des Bundes) als zurückgerufen gemeldet ist. Bei Autositzen zusätzlich: das Ablaufdatum ist meist am Sitz selbst vermerkt.</p>
           </div>
         </div>
 
