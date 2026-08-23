@@ -196,6 +196,63 @@ if (inseratForm) {
   const bestaetigungText = document.querySelector("#bestaetigung-text");
   const kategorieSelect = document.querySelector("#kategorie");
   const sicherheitsHinweis = document.querySelector("#sicherheits-hinweis");
+  const markeModellInput = document.querySelector("#marke-modell");
+  const modellVorschlaege = document.querySelector("#modell-vorschlaege");
+  const modellHinweis = document.querySelector("#modell-hinweis");
+  const titelInput = document.querySelector("#titel");
+  const groesseInput = document.querySelector("#groesse");
+  const beschreibungInput = document.querySelector("#beschreibung");
+
+  // -----------------------------------------------------------
+  // Marke & Modell erkennen: eine kleine, fest eingebaute Liste
+  // bekannter Kinderartikel-Modelle. Das ist KEINE echte KI-Erkennung
+  // (die bräuchte einen Server mit einer echten Produktdatenbank),
+  // aber simuliert das Prinzip für diesen Demo-Prototyp: Modellname
+  // eintippen -> passende Felder werden automatisch vorgeschlagen.
+  // -----------------------------------------------------------
+  const MODELL_DATENBANK = {
+    "bugaboo fox 3": { kategorie: "ausstattung", groesse: "Ab Geburt", beschreibung: "Hochwertiger 3-Rad-Kinderwagen von Bugaboo, geeignet ab Geburt mit passender Babyschale/Wanne. Leichtgängige Räder, gut geeignet für Stadt und leichtes Gelände." },
+    "stokke xplory x": { kategorie: "ausstattung", groesse: "Ab Geburt", beschreibung: "Kinderwagen von Stokke mit erhöhter Sitzposition, näher bei den Eltern. Geeignet ab Geburt mit Newborn-Set." },
+    "joolz aer": { kategorie: "ausstattung", groesse: "Ab Geburt", beschreibung: "Leichter, kompakter Falt-Kinderwagen von Joolz. Ab Geburt einsetzbar, praktisch für Reisen dank kleinem Packmass." },
+    "britax römer dualfix": { kategorie: "ausstattung", groesse: "0–18 kg (Gruppe 0+/1)", beschreibung: "Reboard-Autositz von Britax Römer, drehbar, für Kinder von Geburt bis ca. 4 Jahre. Bitte vor dem Verkauf auf RecallSwiss prüfen." },
+    "maxi-cosi pearl": { kategorie: "ausstattung", groesse: "0–13 kg (Gruppe 0+)", beschreibung: "Babyschale von Maxi-Cosi für die ersten Lebensmonate, rückwärtsgerichtet. Bitte vor dem Verkauf auf RecallSwiss prüfen." },
+    "cybex cloud t": { kategorie: "ausstattung", groesse: "Ab Geburt bis ca. 4 Jahre", beschreibung: "Reboard-Autositz von Cybex mit langer Nutzungsdauer. Bitte vor dem Verkauf auf RecallSwiss prüfen." },
+    "chicco polly": { kategorie: "ausstattung", groesse: "Ab 6 Monaten", beschreibung: "Hochstuhl von Chicco, höhenverstellbar, mit abnehmbarem Tablett. Leicht zu reinigen." },
+    "stokke tripp trapp": { kategorie: "ausstattung", groesse: "Ab 6 Monaten, mitwachsend", beschreibung: "Der Klassiker unter den mitwachsenden Holz-Hochstühlen von Stokke. Wächst vom Baby- bis ins Erwachsenenalter mit." },
+    "babybjörn babysitter": { kategorie: "ausstattung", groesse: "Ab Geburt", beschreibung: "Leichte Babywippe von BabyBjörn, faltbar und platzsparend. Waschbarer Bezug." },
+  };
+
+  // Der Browser übernimmt die Tippvorschläge automatisch über
+  // dieses <datalist>-Element, das mit den Modellnamen gefüllt wird.
+  Object.keys(MODELL_DATENBANK).forEach((modellname) => {
+    const option = document.createElement("option");
+    // Erster Buchstabe jedes Worts gross, nur fürs Aussehen im Dropdown
+    option.value = modellname.replace(/\b\w/g, (buchstabe) => buchstabe.toUpperCase());
+    modellVorschlaege.appendChild(option);
+  });
+
+  markeModellInput.addEventListener("input", () => {
+    const eingabe = markeModellInput.value.trim().toLowerCase();
+    const treffer = MODELL_DATENBANK[eingabe];
+
+    if (!treffer) {
+      modellHinweis.style.display = "none";
+      return;
+    }
+
+    // Nur leere Felder automatisch ausfüllen, damit wir nichts
+    // überschreiben, das die Person schon selbst eingetippt hat
+    if (!titelInput.value) titelInput.value = markeModellInput.value;
+    if (!kategorieSelect.value) {
+      kategorieSelect.value = treffer.kategorie;
+      kategorieSelect.dispatchEvent(new Event("change")); // löst z.B. den Sicherheitshinweis aus
+    }
+    if (!groesseInput.value) groesseInput.value = treffer.groesse;
+    if (!beschreibungInput.value) beschreibungInput.value = treffer.beschreibung;
+
+    modellHinweis.textContent = `✓ Erkannt: Titel, Kategorie, Grösse und Beschreibung automatisch ausgefüllt – du kannst alles noch anpassen.`;
+    modellHinweis.style.display = "block";
+  });
 
   // Sicherheitshinweis nur einblenden, wenn "Ausstattung" gewählt ist
   // (dort finden sich Autositze, Kinderwagen, Hochstühle etc.)

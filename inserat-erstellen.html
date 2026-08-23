@@ -59,6 +59,10 @@
       font-size: 0.8rem; color: #5B6A5E; background: var(--moss-bg-soft);
       border-radius: var(--radius-md); padding: 14px 18px; margin-top: 24px;
     }
+    #modell-hinweis {
+      background: var(--moss-bg-soft); border-radius: var(--radius-md); padding: 10px 14px;
+      color: var(--forest-deep); font-size: 0.85rem;
+    }
   </style>
 </head>
 <body>
@@ -98,6 +102,13 @@
     <div class="wrap">
 
       <form class="form-box" id="inserat-form">
+        <div class="form-row">
+          <label for="marke-modell">Marke &amp; Modell <span style="font-weight: 400; opacity: 0.7;">(optional – füllt Felder automatisch aus)</span></label>
+          <input type="text" id="marke-modell" list="modell-vorschlaege" placeholder="z.B. Bugaboo Fox 3 oder Maxi-Cosi Pearl" autocomplete="off" />
+          <datalist id="modell-vorschlaege"></datalist>
+          <p id="modell-hinweis" class="foto-hinweis" style="display: none; text-align: left; margin-top: 8px;"></p>
+        </div>
+
         <div class="form-row">
           <label for="fotos">Fotos</label>
           <label class="foto-upload" for="fotos">
