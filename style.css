@@ -168,7 +168,7 @@ section h2 { font-size: 1.7rem; margin-bottom: 32px; display: flex; align-items:
 .rechner { padding: 24px 0 88px; }
 .rechner-box {
   background: var(--moss-bg); border-radius: var(--radius-lg);
-  padding: 40px; max-width: 640px; margin: 0 auto; box-shadow: var(--shadow-soft);
+  padding: 40px; max-width: 640px; box-shadow: var(--shadow-soft);
 }
 .rechner-box label { display: block; font-weight: 700; margin-bottom: 16px; color: var(--forest-deep); }
 .rechner-box input[type="range"] {
