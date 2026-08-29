@@ -447,6 +447,21 @@ if (listingGrid) {
   });
   // "input" statt "change", damit die Suche schon beim Tippen reagiert
   suche.addEventListener("input", filternUndSortieren);
+
+  // "Filter zurücksetzen": alle Dropdowns und die Suche auf den
+  // Ausgangszustand bringen und neu filtern
+  const filterReset = document.querySelector("#filter-reset");
+  filterReset.addEventListener("click", () => {
+    filterGroesse.value = "alle";
+    filterKategorie.value = "alle";
+    filterUnterkategorie.value = "alle";
+    filterRegion.value = "alle";
+    filterZustand.value = "alle";
+    sortierung.value = "neueste";
+    suche.value = "";
+    nurFavoriten.checked = false;
+    filternUndSortieren();
+  });
 }
 
 // -----------------------------------------------------------
