@@ -141,6 +141,20 @@
           </div>
         </div>
 
+        <!-- Unterkategorie: erscheint nur, wenn "Ausstattung" gewählt ist -->
+        <div class="form-row" id="unterkategorie-zeile" style="display: none;">
+          <label for="unterkategorie">Art der Ausstattung</label>
+          <select id="unterkategorie">
+            <option value="">Bitte wählen</option>
+            <option value="kinderwagen-buggys">Kinderwagen &amp; Buggys</option>
+            <option value="autositze">Autositze</option>
+            <option value="hochstuehle">Hochstühle</option>
+            <option value="tragen-wippen">Tragen &amp; Wippen</option>
+            <option value="betten-schlafen">Betten &amp; Schlafen (Reisebett, Beistellbett)</option>
+            <option value="aufbewahrung-moebel">Aufbewahrung &amp; Möbel (Kommode, Wickeltisch, Regal)</option>
+          </select>
+        </div>
+
         <!-- Sicherheitshinweis: erscheint nur bei sicherheitsrelevanten Kategorien -->
         <div class="form-row sicherheits-hinweis" id="sicherheits-hinweis" style="display: none;">
           <svg viewBox="0 0 24 24" fill="none" stroke="var(--forest-deep)" stroke-width="1.8" width="22" height="22"><path d="M12 2 L20 6 V12 C20 17 16.5 20.5 12 22 C7.5 20.5 4 17 4 12 V6 Z"/><path d="M9 12 L11 14 L15 9"/></svg>
