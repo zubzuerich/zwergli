@@ -14,10 +14,13 @@
       padding: 40px; max-width: 640px; box-shadow: var(--shadow-soft);
     }
     .guide-box label { display: block; font-weight: 700; color: var(--forest-deep); margin-bottom: 10px; }
-    .guide-box input[type="date"] {
-      width: 100%; font-family: var(--font-body); font-size: 0.95rem;
+    .guide-box input[type="date"], .guide-box input[type="number"] {
+      width: 100%; box-sizing: border-box; font-family: var(--font-body); font-size: 0.95rem;
       padding: 11px 14px; border-radius: var(--radius-md); border: 2px solid rgba(47,75,60,0.15);
       background: var(--cream); color: var(--ink); margin-bottom: 8px;
+    }
+    .guide-box input:focus {
+      outline: none; border-color: var(--ochre-dark); box-shadow: 0 0 0 3px rgba(217,164,65,0.12);
     }
     .guide-hinweis { font-size: 0.82rem; color: #5B6A5E; margin-bottom: 24px; }
     .guide-results { display: none; }
@@ -29,20 +32,10 @@
     .groessen-karte .detail { font-size: 0.82rem; color: #5B6A5E; margin-top: 4px; }
     .guide-cta { margin-top: 24px; }
     .guide-disclaimer { font-size: 0.78rem; color: #5B6A5E; margin-top: 20px; }
-    .autositz-box {
-      background: var(--amber-soft); border-radius: var(--radius-md);
-      padding: 18px 20px; margin-top: 20px;
-    }
-    .autositz-box .etikett { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--forest-deep); }
-    .autositz-box .wert { font-family: var(--font-display); color: var(--forest-deep); }
-    .autositz-box .guide-hinweis { color: var(--forest-deep); opacity: 0.85; }
-    .autositz-box a { color: var(--forest-deep); text-decoration: underline; font-weight: 700; }
-
-    .guide-groesse-felder { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+    .guide-groesse-felder { margin-top: 16px; max-width: 100%; }
 
     @media (max-width: 600px) {
       .guide-box { padding: 24px; }
-      .guide-box .form-row-split { grid-template-columns: 1fr; gap: 14px; }
       .groessen-karten { grid-template-columns: 1fr; }
     }
   </style>
@@ -87,17 +80,11 @@
         <input type="date" id="geburtsdatum" />
         <p class="guide-hinweis">Bleibt nur in deinem Browser – wird nirgends gespeichert oder verschickt.</p>
 
-        <div class="form-row-split guide-groesse-felder">
-          <div>
-            <label for="gewicht" style="font-size: 0.85rem;">Gewicht in kg (optional)</label>
-            <input type="number" id="gewicht" min="0" step="0.1" placeholder="z.B. 12.5" />
-          </div>
-          <div>
-            <label for="koerpergroesse" style="font-size: 0.85rem;">Körpergrösse in cm (optional)</label>
-            <input type="number" id="koerpergroesse" min="0" step="1" placeholder="z.B. 85" />
-          </div>
+        <div class="guide-groesse-felder">
+          <label for="koerpergroesse" style="font-size: 0.85rem;">Körpergrösse in cm (optional)</label>
+          <input type="number" id="koerpergroesse" min="40" max="200" step="1" placeholder="z.B. 85" />
         </div>
-        <p class="guide-hinweis">Für eine genauere Autositz-Empfehlung – ohne diese Angaben schätzen wir nur grob anhand des Alters.</p>
+        <p class="guide-hinweis">Mit der Körpergrösse kann die Kleidergrösse genauer eingeschätzt werden. Die Schuhgrösse bleibt ein ungefährer Richtwert nach Alter.</p>
 
         <div class="guide-results" id="guide-results">
           <div class="groessen-karten">
@@ -114,17 +101,9 @@
           </div>
           <a href="marktplatz.html" class="btn btn-primary btn-lg guide-cta">Passende Artikel im Marktplatz ansehen</a>
 
-          <div class="autositz-box" id="autositz-box">
-            <div class="etikett" style="margin-bottom: 6px;">Zusätzlich: Autositz-Richtwert</div>
-            <div class="wert" id="autositz-gruppe" style="font-size: 1.15rem;">–</div>
-            <div style="font-size: 0.78rem; color: var(--forest-deep); opacity: 0.7; margin-top: 4px;" id="autositz-basis">Berechnet nach: –</div>
-            <p class="guide-hinweis" style="margin: 8px 0 0;">
-              Gesetzlich massgebend sind in der Schweiz <strong>Gewicht und Körpergrösse</strong> des Kindes, nicht das Alter – dies ist nur ein Richtwert. Seit 1.9.2024 dürfen neu nur noch Sitze nach Norm <strong>ECE R129 (i-Size)</strong> verkauft werden. Pflicht besteht bis 12 Jahre oder 150 cm Körpergrösse (Quelle: <a href="https://www.astra.admin.ch/astra/de/home/themen/verkehrsregeln/sicherung-kindern.html" target="_blank" rel="noopener">ASTRA</a>, <a href="https://www.bfu.ch/de/ratgeber/kindersitz" target="_blank" rel="noopener">BFU</a>).
-            </p>
-          </div>
         </div>
 
-        <p class="guide-disclaimer">Richtwerte auf Basis gängiger CH/EU-Kindergrössen – jede Marke schneidet leicht anders, im Zweifel lieber eine Nummer grösser wählen.</p>
+        <p class="guide-disclaimer">Richtwerte auf Basis gängiger CH/EU-Kindergrössen. Die tatsächliche Passform kann je nach Marke und Kind unterschiedlich sein.</p>
       </div>
     </div>
   </section>

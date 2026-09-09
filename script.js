@@ -76,110 +76,77 @@ if (geburtsdatumInput) {
   const aktuelleSchuhgroesse = document.querySelector("#aktuelle-schuhgroesse");
   const naechsteGroesse = document.querySelector("#naechste-groesse");
   const naechsteSchuhgroesse = document.querySelector("#naechste-schuhgroesse");
-  const autositzGruppe = document.querySelector("#autositz-gruppe");
-  const gewichtInput = document.querySelector("#gewicht");
   const koerpergroesseInput = document.querySelector("#koerpergroesse");
 
-  // Richtwerte für Autositz-Gruppen nach Alter. WICHTIG: gesetzlich zählt
-  // eigentlich Gewicht/Körpergrösse, nicht das Alter - das steht auch so
-  // im Hinweistext auf der Seite. Quellen: ASTRA, BFU (siehe Links im HTML).
-  const AUTOSITZ_TABELLE = [
-    { bis: 15, gruppe: "Babyschale (Gruppe 0+)", bereich: "bis ca. 13 kg, rückwärtsgerichtet" },
-    { bis: 48, gruppe: "Kindersitz (Gruppe 1)", bereich: "ca. 9–18 kg" },
-    { bis: 84, gruppe: "Sitzerhöhung (Gruppe 2)", bereich: "ca. 15–25 kg" },
-    { bis: 144, gruppe: "Sitzerhöhung (Gruppe 3)", bereich: "ca. 22–36 kg, bis 150 cm oder 12 Jahre" },
-  ];
-
-  // Dieselben Gruppen, aber nach Gewicht statt Alter sortiert - wird
-  // verwendet, sobald ein Gewicht eingegeben wird (genauer als eine
-  // Alters-Schätzung, weil Kinder unterschiedlich schnell wachsen).
-  const AUTOSITZ_NACH_GEWICHT = [
-    { bisKg: 13, gruppe: "Babyschale (Gruppe 0+)", bereich: "bis ca. 13 kg, rückwärtsgerichtet" },
-    { bisKg: 18, gruppe: "Kindersitz (Gruppe 1)", bereich: "ca. 9–18 kg" },
-    { bisKg: 25, gruppe: "Sitzerhöhung (Gruppe 2)", bereich: "ca. 15–25 kg" },
-    { bisKg: 36, gruppe: "Sitzerhöhung (Gruppe 3)", bereich: "ca. 22–36 kg" },
-  ];
-
-  function autositzBerechnen(alterInMonaten) {
-    const gewicht = Number(gewichtInput.value);
-    const groesseCm = Number(koerpergroesseInput.value);
-
-    // Körpergrösse hat Vorrang: ab 150 cm ist gesetzlich gar kein
-    // Kindersitz mehr vorgeschrieben, unabhängig von Gewicht oder Alter.
-    if (groesseCm && groesseCm >= 150) {
-      return { text: "Kein Kindersitz mehr nötig – Körpergrösse erreicht", basis: "Grösse" };
-    }
-
-    // Gewicht ist genauer als Alter, wenn vorhanden
-    if (gewicht) {
-      const zeile = AUTOSITZ_NACH_GEWICHT.find((z) => gewicht <= z.bisKg) ?? AUTOSITZ_NACH_GEWICHT[AUTOSITZ_NACH_GEWICHT.length - 1];
-      return { text: `${zeile.gruppe} · ${zeile.bereich}`, basis: "Gewicht" };
-    }
-
-    // Sonst grobe Schätzung nach Alter
-    const zeile = AUTOSITZ_TABELLE.find((z) => alterInMonaten < z.bis) ?? AUTOSITZ_TABELLE[AUTOSITZ_TABELLE.length - 1];
-    return { text: `${zeile.gruppe} · ${zeile.bereich}`, basis: "Alter (grobe Schätzung)" };
-  }
-
   // Richtwerte für gängige CH/EU-Kindergrössen nach Alter in Monaten.
-  // "bis" ist exklusiv (z.B. 0-1 heisst: ab Geburt bis kurz vor 1 Monat)
   const GROESSEN_TABELLE = [
-    { bis: 1, kleidung: "50–56", schuh: "–" },
-    { bis: 3, kleidung: "56–62", schuh: "–" },
-    { bis: 6, kleidung: "62–68", schuh: "16–17" },
-    { bis: 9, kleidung: "68–74", schuh: "18–19" },
-    { bis: 12, kleidung: "74–80", schuh: "19–20" },
-    { bis: 18, kleidung: "80–86", schuh: "20–22" },
-    { bis: 24, kleidung: "86–92", schuh: "23–24" },
-    { bis: 36, kleidung: "92–98", schuh: "24–27" },
-    { bis: 48, kleidung: "98–104", schuh: "27–29" },
-    { bis: 60, kleidung: "104–110", schuh: "29–30" },
-    { bis: 72, kleidung: "110–116", schuh: "30–32" },
-    { bis: 84, kleidung: "116–122", schuh: "32–33" },
-    { bis: 96, kleidung: "122–128", schuh: "33–34" },
+    { bis: 1, kleidung: "50–56", schuh: "–", bisCm: 56 },
+    { bis: 3, kleidung: "56–62", schuh: "–", bisCm: 62 },
+    { bis: 6, kleidung: "62–68", schuh: "16–17", bisCm: 68 },
+    { bis: 9, kleidung: "68–74", schuh: "18–19", bisCm: 74 },
+    { bis: 12, kleidung: "74–80", schuh: "19–20", bisCm: 80 },
+    { bis: 18, kleidung: "80–86", schuh: "20–22", bisCm: 86 },
+    { bis: 24, kleidung: "86–92", schuh: "23–24", bisCm: 92 },
+    { bis: 36, kleidung: "92–98", schuh: "24–27", bisCm: 98 },
+    { bis: 48, kleidung: "98–104", schuh: "27–29", bisCm: 104 },
+    { bis: 60, kleidung: "104–110", schuh: "29–30", bisCm: 110 },
+    { bis: 72, kleidung: "110–116", schuh: "30–32", bisCm: 116 },
+    { bis: 84, kleidung: "116–122", schuh: "32–33", bisCm: 122 },
+    { bis: 96, kleidung: "122–128", schuh: "33–34", bisCm: 128 },
   ];
 
   function guideAktualisieren() {
-    if (!geburtsdatumInput.value) return;
+    if (!geburtsdatumInput.value) {
+      guideResults.classList.remove("sichtbar");
+      return;
+    }
 
     const geburtsdatum = new Date(geburtsdatumInput.value);
     const heute = new Date();
 
-    // Alter in Monaten berechnen (grob, aber genau genug für Kleidergrössen)
     let alterInMonaten =
       (heute.getFullYear() - geburtsdatum.getFullYear()) * 12 +
       (heute.getMonth() - geburtsdatum.getMonth());
     if (alterInMonaten < 0) alterInMonaten = 0;
 
-    // Passende Zeile in der Tabelle finden (die erste, deren "bis" grösser ist)
-    const aktuellerIndex = GROESSEN_TABELLE.findIndex((zeile) => alterInMonaten < zeile.bis);
-    const aktuelleZeile = GROESSEN_TABELLE[aktuellerIndex] ?? GROESSEN_TABELLE[GROESSEN_TABELLE.length - 1];
-    const naechsteZeile = GROESSEN_TABELLE[aktuellerIndex + 1];
+    const altersIndex = GROESSEN_TABELLE.findIndex((zeile) => alterInMonaten < zeile.bis);
+    const sichererAltersIndex = altersIndex === -1 ? GROESSEN_TABELLE.length - 1 : altersIndex;
 
-    aktuelleGroesse.textContent = aktuelleZeile.kleidung;
-    aktuelleSchuhgroesse.textContent = `Schuhgrösse ${aktuelleZeile.schuh}`;
+    // Wenn eine Körpergrösse angegeben ist, orientiert sich die Kleidergrösse daran.
+    // Die Schuhgrösse bleibt bewusst ein ungefährer Alters-Richtwert.
+    const koerpergroesse = Number(koerpergroesseInput.value);
+    let kleiderIndex = sichererAltersIndex;
+    if (koerpergroesse > 0) {
+      const groessenIndex = GROESSEN_TABELLE.findIndex((zeile) => koerpergroesse <= zeile.bisCm);
+      kleiderIndex = groessenIndex === -1 ? GROESSEN_TABELLE.length - 1 : groessenIndex;
+    }
 
-    if (naechsteZeile) {
-      naechsteGroesse.textContent = naechsteZeile.kleidung;
-      naechsteSchuhgroesse.textContent = `Schuhgrösse ${naechsteZeile.schuh}`;
+    const aktuelleKleiderZeile = GROESSEN_TABELLE[kleiderIndex];
+    const naechsteKleiderZeile = GROESSEN_TABELLE[kleiderIndex + 1];
+    const aktuelleSchuhZeile = GROESSEN_TABELLE[sichererAltersIndex];
+    const naechsteSchuhZeile = GROESSEN_TABELLE[sichererAltersIndex + 1];
+
+    aktuelleGroesse.textContent = aktuelleKleiderZeile.kleidung;
+    aktuelleSchuhgroesse.textContent = aktuelleSchuhZeile.schuh === "–"
+      ? "Schuhgrösse: noch kein sinnvoller Richtwert"
+      : `Schuhgrösse: ca. ${aktuelleSchuhZeile.schuh}`;
+
+    if (naechsteKleiderZeile) {
+      naechsteGroesse.textContent = naechsteKleiderZeile.kleidung;
     } else {
       naechsteGroesse.textContent = "–";
-      naechsteSchuhgroesse.textContent = "Ausserhalb der Tabelle";
+    }
+
+    if (naechsteSchuhZeile && naechsteSchuhZeile.schuh !== "–") {
+      naechsteSchuhgroesse.textContent = `Schuhgrösse: ca. ${naechsteSchuhZeile.schuh}`;
+    } else {
+      naechsteSchuhgroesse.textContent = "Schuhgrösse: noch kein sinnvoller Richtwert";
     }
 
     guideResults.classList.add("sichtbar");
-
-    // Autositz-Richtwert berechnen (separat von der Kleidergrössen-Tabelle,
-    // nutzt Gewicht/Grösse falls vorhanden, sonst nur das Alter)
-    const autositzErgebnis = autositzBerechnen(alterInMonaten);
-    autositzGruppe.textContent = autositzErgebnis.text;
-    document.querySelector("#autositz-basis").textContent = `Berechnet nach: ${autositzErgebnis.basis}`;
   }
 
-  // Bei jeder Änderung neu berechnen - Geburtsdatum ist Pflicht für die
-  // Kleidergrössen, Gewicht/Grösse verfeinern zusätzlich die Autositz-Angabe
   geburtsdatumInput.addEventListener("change", guideAktualisieren);
-  gewichtInput.addEventListener("input", guideAktualisieren);
   koerpergroesseInput.addEventListener("input", guideAktualisieren);
 }
 
@@ -466,32 +433,39 @@ if (listingGrid) {
 
 // -----------------------------------------------------------
 // Spar-Rechner: reagiert auf den Schieberegler (id="artikel-slider")
-// und zeigt einen vorsichtigen CO2-Richtwert fuer wiederverwendete Kleidung.
+// und rechnet live aus, wie viel CO2 und Wasser gespart wird.
 // -----------------------------------------------------------
 const slider = document.querySelector("#artikel-slider");
 
 if (slider) {
   const artikelWert = document.querySelector("#artikel-wert");
-  const artikelEinheit = document.querySelector("#artikel-einheit");
   const co2Wert = document.querySelector("#co2-wert");
+  const wasserWert = document.querySelector("#wasser-wert");
 
-  // Quelle: EuRIC (2023). Die Studie nennt mehr als 3 kg CO2-Einsparung
-  // fuer die Wiederverwendung eines Kleidungsstuecks guter/mittlerer Qualitaet.
-  // Fuer die Veranschaulichung rechnet Zwergli bewusst konservativ mit ca. 3 kg.
-  const CO2_PRO_KLEIDUNGSSTUECK = 3; // kg, Richtwert
+  // Quellen: EuRIC (2023) – 3 kg CO2 gespart pro wiederverwendetem
+  // Kleidungsstück. WWF – durchschnittlicher Wasserfussabdruck eines
+  // Kleidungsstücks (Anbau, Färben, Verarbeitung) von 2'700 Litern.
+  const CO2_PRO_ARTIKEL = 3; // kg
+  const WASSER_PRO_ARTIKEL = 2700; // Liter
 
+  // Diese Funktion liest den aktuellen Schieberegler-Wert und
+  // schreibt die berechneten Zahlen in die drei Anzeige-Felder.
   function rechnerAktualisieren() {
     const anzahl = Number(slider.value);
 
     artikelWert.textContent = anzahl;
-    artikelEinheit.textContent = anzahl === 1 ? "Kleidungsstück" : "Kleidungsstücke";
-    co2Wert.textContent = `ca. ${anzahl * CO2_PRO_KLEIDUNGSSTUECK} kg`;
+    co2Wert.textContent = `${anzahl * CO2_PRO_ARTIKEL} kg`;
+
+    const wasserGesamt = anzahl * WASSER_PRO_ARTIKEL;
+    // toLocaleString formatiert grosse Zahlen mit Tausender-Trennzeichen,
+    // z.B. aus 27000 wird "27'000"
+    wasserWert.textContent = `${wasserGesamt.toLocaleString("de-CH")} l`;
   }
 
-  // "input" feuert bei jeder Bewegung des Reglers, nicht erst beim Loslassen.
+  // "input" feuert bei jeder Mausbewegung des Reglers, nicht erst beim Loslassen
   slider.addEventListener("input", rechnerAktualisieren);
 
-  // Startwert beim Laden korrekt anzeigen.
+  // Einmal beim Laden der Seite ausführen, damit die Startwerte stimmen
   rechnerAktualisieren();
 }
 
