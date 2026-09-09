@@ -466,39 +466,32 @@ if (listingGrid) {
 
 // -----------------------------------------------------------
 // Spar-Rechner: reagiert auf den Schieberegler (id="artikel-slider")
-// und rechnet live aus, wie viel CO2 und Wasser gespart wird.
+// und zeigt einen vorsichtigen CO2-Richtwert fuer wiederverwendete Kleidung.
 // -----------------------------------------------------------
 const slider = document.querySelector("#artikel-slider");
 
 if (slider) {
   const artikelWert = document.querySelector("#artikel-wert");
+  const artikelEinheit = document.querySelector("#artikel-einheit");
   const co2Wert = document.querySelector("#co2-wert");
-  const wasserWert = document.querySelector("#wasser-wert");
 
-  // Quellen: EuRIC (2023) – 3 kg CO2 gespart pro wiederverwendetem
-  // Kleidungsstück. WWF – durchschnittlicher Wasserfussabdruck eines
-  // Kleidungsstücks (Anbau, Färben, Verarbeitung) von 2'700 Litern.
-  const CO2_PRO_ARTIKEL = 3; // kg
-  const WASSER_PRO_ARTIKEL = 2700; // Liter
+  // Quelle: EuRIC (2023). Die Studie nennt mehr als 3 kg CO2-Einsparung
+  // fuer die Wiederverwendung eines Kleidungsstuecks guter/mittlerer Qualitaet.
+  // Fuer die Veranschaulichung rechnet Zwergli bewusst konservativ mit ca. 3 kg.
+  const CO2_PRO_KLEIDUNGSSTUECK = 3; // kg, Richtwert
 
-  // Diese Funktion liest den aktuellen Schieberegler-Wert und
-  // schreibt die berechneten Zahlen in die drei Anzeige-Felder.
   function rechnerAktualisieren() {
     const anzahl = Number(slider.value);
 
     artikelWert.textContent = anzahl;
-    co2Wert.textContent = `${anzahl * CO2_PRO_ARTIKEL} kg`;
-
-    const wasserGesamt = anzahl * WASSER_PRO_ARTIKEL;
-    // toLocaleString formatiert grosse Zahlen mit Tausender-Trennzeichen,
-    // z.B. aus 27000 wird "27'000"
-    wasserWert.textContent = `${wasserGesamt.toLocaleString("de-CH")} l`;
+    artikelEinheit.textContent = anzahl === 1 ? "Kleidungsstück" : "Kleidungsstücke";
+    co2Wert.textContent = `ca. ${anzahl * CO2_PRO_KLEIDUNGSSTUECK} kg`;
   }
 
-  // "input" feuert bei jeder Mausbewegung des Reglers, nicht erst beim Loslassen
+  // "input" feuert bei jeder Bewegung des Reglers, nicht erst beim Loslassen.
   slider.addEventListener("input", rechnerAktualisieren);
 
-  // Einmal beim Laden der Seite ausführen, damit die Startwerte stimmen
+  // Startwert beim Laden korrekt anzeigen.
   rechnerAktualisieren();
 }
 

@@ -180,7 +180,7 @@ section h2 { font-size: 1.7rem; margin-bottom: 32px; display: flex; align-items:
   background: var(--ochre); border: 3px solid var(--cream); box-shadow: var(--shadow-soft); cursor: pointer;
 }
 .rechner-anzahl { text-align: center; font-family: var(--font-display); font-size: 1.3rem; color: var(--forest); margin: 14px 0 28px; }
-.rechner-results { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.rechner-results { display: grid; grid-template-columns: 1fr; gap: 20px; max-width: 360px; margin: 0 auto; }
 .rechner-result {
   background: var(--cream); border-radius: var(--radius-md); padding: 20px; text-align: center;
 }
